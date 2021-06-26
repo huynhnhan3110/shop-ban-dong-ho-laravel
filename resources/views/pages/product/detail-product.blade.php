@@ -1,7 +1,11 @@
 @extends('layout')
+
+
 @section("content")
+
+@foreach($product_by_id as $key => $productDetail)
+@section('title',$productDetail->product_name)
 <div class="product-details"><!--product-details-->
-    @foreach($product_by_id as $key => $productDetail)
     <div class="col-sm-5">
         <div class="view-product">
             <img src="{{URL::to('public/upload/product/'.$productDetail->product_image)}}" alt="" />
@@ -43,68 +47,53 @@
         <div class="product-information"><!--/product-information-->
             <img src="{{URL::to('public/frontend/img/product-details/new.jpg')}}" class="newarrival" alt="" />
             <h2>{{$productDetail->product_name}}</h2>
-            <p>Web ID: 1089772</p>
+            <p>Mã đồng hồ: {{$productDetail->product_id}}</p>
             <img src="{{URL::to('public/frontend/img/product-details/rating.png')}}" alt="" />
             <span>
-                <span>{{number_format($productDetail->product_price)}} VND</span>
+                <span>{{number_format($productDetail->product_price).' VND'}}</span>
                 <label>Quantity:</label>
-                <input type="text" value="3" />
+                <input type="number" value="1" min="1"/>
                 <button type="button" class="btn btn-fefault cart">
                     <i class="fa fa-shopping-cart"></i>
-                    Add to cart
+                    Thêm vào giỏ hàng
                 </button>
             </span>
-            <p><b>Availability:</b> In Stock</p>
-            <p><b>Category:</b> {{$productDetail->category_name}}</p>
-            <p><b>Brand:</b> {{$productDetail->branch_name}}</p>
+            <p><b>Trạng thái:</b> Còn hàng</p>
+            <p><b>Tình trạng:</b> Mới 100%</p>
+
+            <p><b>Danh mục:</b> {{$productDetail->category_name}}</p>
+            <p><b>Thương hiệu:</b> {{$productDetail->branch_name}}</p>
             <a href=""><img src="{{URL::to('public/frontend/img/product-details/share.png')}}" class="share img-responsive"  alt="" /></a>
         </div><!--/product-information-->
     </div>
-    @endforeach
 </div><!--/product-details-->
 <div class="category-tab shop-details-tab"><!--category-tab-->
     <div class="col-sm-12">
         <ul class="nav nav-tabs">
-            <li><a href="#details" data-toggle="tab">Chi tiết</a></li>
-            <li><a href="#companyprofile" data-toggle="tab">Thông tin công ty</a></li>
-            <li class="active"><a href="#reviews" data-toggle="tab">Đánh giá (5)</a></li>
+            <li class="active"><a href="#details" data-toggle="tab">Mô tả sản phẩm</a></li>
+            <li><a href="#companyprofile" data-toggle="tab">Chi tiết sản phẩm</a></li>
+            <li><a href="#reviews" data-toggle="tab">Đánh giá (5)</a></li>
         </ul>
     </div>
     <div class="tab-content">
-        <div class="tab-pane fade" id="details" >
-            <div class="col-sm-3">
-                <div class="product-image-wrapper">
-                    <div class="single-products">
-                        <div class="productinfo text-center">
-                            <img src="{{URL::to('public/frontend/img/home/gallery1.jpg')}}" alt="" />
-                            <h2>$56</h2>
-                            <p>Easy Polo Black Edition</p>
-                            <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                        </div>
-                    </div>
-                </div>
+        <div class="tab-pane fade  active in" id="details" >
+            <div class="col-sm-12">
+                <p>{!!$productDetail->product_desc!!}</p>
+                
             </div>
             
         </div>
         
         <div class="tab-pane fade" id="companyprofile" >
-            <div class="col-sm-3">
-                <div class="product-image-wrapper">
-                    <div class="single-products">
-                        <div class="productinfo text-center">
-                            <img src="{{URL::to('public/frontend/img/home/gallery1.jpg')}}" alt="" />
-                            <h2>$56</h2>
-                            <p>Easy Polo Black Edition</p>
-                            <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-sm-12">
+                <p>{!!$productDetail->product_content!!}</p>
+                
             </div>
             
         </div>
         
         
-        <div class="tab-pane fade active in" id="reviews" >
+        <div class="tab-pane fade" id="reviews" >
             <div class="col-sm-12">
                 <ul>
                     <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
@@ -131,6 +120,7 @@
     </div>
 </div><!--/category-tab-->
 
+@endforeach
 <div class="recommended_items"><!--recommended_items-->
     <h2 class="title text-center">Sản phẩm gợi ý</h2>
     

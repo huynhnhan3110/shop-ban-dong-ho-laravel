@@ -35,7 +35,7 @@
                                     </select>
                                 </div>
                                
-                                <button type="submit" class="btn btn-info">Thêm</button>
+                                <button type="submit" class="btn btn-info">Thêm thương hiệu</button>
                             </form>
                             </div>
 

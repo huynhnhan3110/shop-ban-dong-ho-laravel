@@ -85,7 +85,7 @@
                                     </select>
                                 </div>
                                
-                                <button type="submit" class="btn btn-info">Thêm sản phẩm</button>
+                                <button type="submit" class="btn btn-info">Cập nhật sản phẩm</button>
                             </form>
                             </div>
 
