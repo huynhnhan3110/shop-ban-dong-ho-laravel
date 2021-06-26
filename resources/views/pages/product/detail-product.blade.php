@@ -49,15 +49,19 @@
             <h2>{{$productDetail->product_name}}</h2>
             <p>Mã đồng hồ: {{$productDetail->product_id}}</p>
             <img src="{{URL::to('public/frontend/img/product-details/rating.png')}}" alt="" />
+            <form action="{{URL::to('/save-cart')}}" method="POST">
+            {{ csrf_field() }}
             <span>
                 <span>{{number_format($productDetail->product_price).' VND'}}</span>
                 <label>Quantity:</label>
-                <input type="number" value="1" min="1"/>
-                <button type="button" class="btn btn-fefault cart">
+                <input name="productID" type="hidden" value="{{ $productDetail->product_id }}"/>
+                <input name="quanlity" type="number" value="1" min="1"/>
+                <button type="submit" class="btn btn-fefault cart">
                     <i class="fa fa-shopping-cart"></i>
                     Thêm vào giỏ hàng
                 </button>
             </span>
+            </form>
             <p><b>Trạng thái:</b> Còn hàng</p>
             <p><b>Tình trạng:</b> Mới 100%</p>
 
@@ -137,7 +141,7 @@
                             <img src="{{URL::to('public/upload/product/'.$relate->product_image)}}" alt="" />
                             <h2>{{number_format($relate->product_price)." VND"}}</h2>
                             <p>{{$relate->product_name}}</p>
-                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm giỏ hàng</a>
                         </div>
                             
                     </div>
