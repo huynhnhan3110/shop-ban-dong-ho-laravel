@@ -126,82 +126,29 @@
     
     <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
-            <div class="item active">	
+            @foreach($relate_product->chunk(3) as $chunk_related)
+            <div class="item @if ($loop->first) active @endif">
+                @foreach($chunk_related as $key => $relate)	
                 <div class="col-sm-4">
                     <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="{{URL::to('public/frontend/img/home/recommend1.jpg')}}" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                            </div>
+                    <a href="{{URL::to('chi-tiet-san-pham/'.$relate->product_id)}}">
+                    <div class="single-products">
+                        <div class="productinfo text-center">
+                            <img src="{{URL::to('public/upload/product/'.$relate->product_image)}}" alt="" />
+                            <h2>{{number_format($relate->product_price)." VND"}}</h2>
+                            <p>{{$relate->product_name}}</p>
+                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                         </div>
+                            
+                    </div>
+                    </a>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="{{URL::to('public/frontend/img/home/recommend2.jpg')}}" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="{{URL::to('public/frontend/img/home/recommend3.jpg')}}" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+                
             </div>
-            <div class="item">	
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="{{URL::to('public/frontend/img/home/recommend1.jpg')}}" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="{{URL::to('public/frontend/img/home/recommend2.jpg')}}" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="{{URL::to('public/frontend/img/home/recommend3.jpg')}}" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
+            
         </div>
             <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
             <i class="fa fa-angle-left"></i>

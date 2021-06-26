@@ -8,17 +8,17 @@
 <div class="col-sm-4">
    
     <div class="product-image-wrapper">
-    
+        <a href="{{URL::to('chi-tiet-san-pham/'.$pro_by_brand->product_id)}}">
         <div class="single-products">
                 <div class="productinfo text-center">
-                    <a href="{{URL::to('chi-tiet-san-pham/'.$pro_by_brand->product_id)}}"><img src="{{URL::to('public/upload/product/'.$pro_by_brand->product_image)}}" alt="" /></a>
+                    <img src="{{URL::to('public/upload/product/'.$pro_by_brand->product_image)}}" alt="" />
                     <h2>{{number_format($pro_by_brand->product_price)." VND"}}</h2>
                     <p>{{$pro_by_brand->product_name}}</p>
                     <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                 </div>
                 
         </div>
-        
+        </a>
         <div class="choose">
             <ul class="nav nav-pills nav-justified">
                 <li><a href="#"><i class="fa fa-plus-square"></i>Yêu thích</a></li>

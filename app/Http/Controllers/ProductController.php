@@ -120,8 +120,20 @@ class ProductController extends Controller
 
         $product_by_id = DB::table('tbl_product')->join('tbl_branch_product','tbl_product.branch_id','=','tbl_branch_product.branch_id')
         ->join('tbl_category_product','tbl_product.category_id','=','tbl_category_product.category_id')->where('tbl_product.product_id',$product_id)->get();
+    
+        foreach($product_by_id as $key => $product) {
+            $category_id = $product->category_id;
+        }
+        
+        $relate_product = DB::table('tbl_product')->join('tbl_branch_product','tbl_product.branch_id','=','tbl_branch_product.branch_id')
+        ->join('tbl_category_product','tbl_product.category_id','=','tbl_category_product.category_id')
+        ->where('tbl_product.category_id',$category_id)->whereNotIn('tbl_product.product_id',[$product_id])->get();
+    
+
         return view('pages.product.detail-product')->with('category_product',$cate_product)->with('branch_product',$branch_product)
-        ->with('product_by_id',$product_by_id);
+        ->with('product_by_id',$product_by_id)
+        ->with('relate_product',$relate_product);
     }
+
     
 }
