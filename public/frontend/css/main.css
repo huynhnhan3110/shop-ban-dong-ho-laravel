@@ -8,7 +8,6 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background:;
   position: relative;
   font-weight:400px;
 }
@@ -327,7 +326,7 @@ ul.sub-menu {
   padding-left: 5px; 
 }
 
-@-webkit-keyframes fadeInUp {
+@keyframes fadeInUp {
   0% {
     opacity: 0;
     -webkit-transform: translateY(20px);
@@ -899,7 +898,7 @@ h2.title {
   transition: height 500ms ease 0s;
   width: 100%;
   display: block;
-  opacity:;
+  opacity:0;
 }
 
 .single-products:hover .product-overlay {
@@ -1064,8 +1063,7 @@ h2.title {
   background: #ccccc6;
 }
 
-.recommended_items  h2 {
-}
+
 
 .our_partners{
   overflow:hidden;
@@ -1432,14 +1430,6 @@ h2.title {
   overflow: hidden;
 }
 
-.login-form {
-
-}
-
-.signup-form {
-
-}
-
 .login-form h2, .signup-form h2 {
   color: #696763;
   font-family: 'Roboto', sans-serif;
@@ -1489,9 +1479,6 @@ h2.title {
   padding: 6px 25px;
 }
 
-.login-form label{
-
-}
 
 
 .login-form label input {
@@ -1604,25 +1591,30 @@ h2.title {
 #cart_items .cart_info .cart_description h4 a {
   color: #363432;
   font-family: 'Roboto',sans-serif;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: normal;
 
 }
 
 #cart_items .cart_info .cart_description p {
-  color:#696763
+  color:#696763;
+  font-size: 15px;
 }
 
 
 #cart_items .cart_info .cart_price p {
   color:#696763;
-  font-size: 18px
+  font-size: 15px
 }
-
-
+td.description {
+  width: 260px;
+}
+.submitQty {
+  font-size: 15px;
+}
 #cart_items .cart_info .cart_total_price {
   color: #FE980F;
-  font-size: 24px;
+  font-size: 16px;
 }
 
 .cart_product {
@@ -1639,14 +1631,14 @@ h2.title {
   overflow: hidden;
   text-align: center;
   width: 35px;
-  float: left;
 }
 
 
 .cart_quantity_input {
   color: #696763;
   float: left;
-  font-size: 16px;
+  width: 50px;
+  font-size: 15px;
   text-align: center;
   font-family: 'Roboto',sans-serif;
   
@@ -1655,7 +1647,6 @@ h2.title {
 
 .cart_delete  {
   display: block;
-  margin-right: -12px;
   overflow: hidden;
 }
 
@@ -1750,8 +1741,6 @@ h2.title {
   margin-right: 10px
 }
 
-.user_info > li > span {
-}
 
 .user_info input, select, textarea {
   background: #F0F0E9;
@@ -2000,8 +1989,6 @@ h2.title {
   margin-bottom: 17px;
 }
 
-.single-blog-post > a {
-}
 
 .blog-post-area 
 .single-blog-post a img {

@@ -29,4 +29,14 @@ class CartController extends Controller
         $branch_product = DB::table('tbl_branch_product')->where('branch_status','1')->orderby('branch_id','desc')->get();
         return view('pages.cart.view_cart')->with('category_product',$cate_product)->with('branch_product',$branch_product);
     }
+    public function delete_row_cart($rowId) {
+        Cart::update($rowId,0);
+        return Redirect::to('/view-cart');
+    }
+    public function update_cart_quanlity(Request $request) {
+        $rowId = $request->rowIDChangeQty;
+        $qty = $request->quantity_change;
+        Cart::update($rowId,$qty);
+        return Redirect::to('/view-cart');
+    }
 }

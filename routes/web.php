@@ -72,3 +72,10 @@ Route::post('/update-product/{product_id}', 'ProductController@update_product');
 
 Route::post('/save-cart', 'CartController@save_cart');
 Route::get('/view-cart', 'CartController@view_cart');
+Route::get('/delete-to-cart/{rowId}', 'CartController@delete_row_cart');
+
+Route::post('/update-view-cart','CartController@update_cart_quanlity');
+
+// Login Checkout
+
+Route::get('/login-checkout', 'CheckoutController@login_checkout');
