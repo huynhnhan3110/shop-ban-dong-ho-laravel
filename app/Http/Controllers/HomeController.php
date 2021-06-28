@@ -21,4 +21,13 @@ class HomeController extends Controller
         return view('pages.home')->with('category_product',$cate_product)->with('branch_product',$branch_product)
         ->with('product',$product);
     }
+    public function search(Request $request) {
+        $cate_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
+        $branch_product = DB::table('tbl_branch_product')->where('branch_status','1')->orderby('branch_id','desc')->get();
+       
+        $keywords = $request->keywordsubmit;
+        $search_product = DB::table('tbl_product')->where('product_name','like','%'.$keywords.'%')->get();
+
+        return view('pages.product.search')->with('category_product',$cate_product)->with('branch_product',$branch_product)->with('search_product',$search_product);    
+    }
 }
