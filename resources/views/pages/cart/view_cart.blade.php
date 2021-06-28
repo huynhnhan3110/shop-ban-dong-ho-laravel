@@ -76,7 +76,17 @@
 							<li>Phí vận chuyển <span>Miễn phí</span></li>
 							<li>Tổng tiền thanh toán <span>{{ Cart::total(0) . " VND" }}</span></li>
 						</ul>
-							<a class="btn btn-default check_out" href="{{URL::to('/login-checkout')}}">Thanh toán</a>
+							<?php
+									$customer_id = Session::get('customer_id');
+								
+									if($customer_id != NULL) {
+									?>
+									<a class="btn btn-default check_out" href="{{URL::to('/checkout')}}">Thanh toán</a>
+									<?php }
+									else {?>
+										<a class="btn btn-default check_out" href="{{URL::to('/login-checkout')}}">Thanh toán</a>
+									<?php } ?>
+							
 					</div>
 				</div>
 			</div>
