@@ -88,9 +88,30 @@
 							<ul class="nav navbar-nav">
 								<li><a href="{{URL::to('/login-checkout')}}"><i class="fa fa-user"></i> Tài khoản</a></li>
 								<li><a href="#"><i class="fa fa-star"></i> Yêu thích</a></li>
-								<li><a href="{{URL::to('/login-checkout')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+								<?php
+									$customer_id = Session::get('customer_id');
+								
+									if($customer_id != NULL) {
+									?>
+									<li><a href="{{URL::to('/checkout')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+									<?php }
+									else {?>
+										<li><a href="{{URL::to('/login-checkout')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+									<?php } ?>
+								
+								
 								<li><a href="{{URL::to('/view-cart')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
-								<li><a href="{{URL::to('/login-checkout')}}"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+									<?php
+									$customer_id = Session::get('customer_id');
+								
+									if($customer_id != NULL) {
+									?>
+									<li><a href="{{URL::to('/logout-checkout')}}"><i class="fa fa-lock"></i> Đăng xuất</a></li>
+									<?php }
+									else {?>
+										<li><a href="{{URL::to('/login-checkout')}}"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+									<?php } ?>
+								
 							</ul>
 						</div>
 					</div>
@@ -101,7 +122,7 @@
 		<div class="header-bottom"><!--header-bottom-->
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-9">
+					<div class="col-sm-8">
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 								<span class="sr-only">Toggle navigation</span>
@@ -125,14 +146,18 @@
 										<li><a href="blog-single.html">Blog Single</a></li>
                                     </ul>
                                 </li> 
-								<li><a href="404.html">Giỏ hàng</a></li>
+								<li><a href="{{URL::to('/view-cart')}}">Giỏ hàng</a></li>
 								<li><a href="contact-us.html">Liên hệ</a></li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+						<form action="{{URL::to('/tim-kiem')}}" method="POST">
+										{{ csrf_field() }}
+							<input type="text" placeholder="Tìm kiếm sản phẩm" name="keywordsubmit"/>
+							<input type="submit" value="Tìm kiếm"  style="margin-top:0; color:white" class="btn btn-primary">
+						</form>
 						</div>
 					</div>
 				</div>
