@@ -52,7 +52,9 @@ class CheckoutController extends Controller
         return Redirect::to('/payment');
     }
     public function payment() {
-
+        $cate_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
+        $branch_product = DB::table('tbl_branch_product')->where('branch_status','1')->orderby('branch_id','desc')->get();
+        return view('pages.checkout.payment')->with('category_product',$cate_product)->with('branch_product',$branch_product);
     }
     public function logout_checkout() {
         Session::flush();
@@ -74,5 +76,19 @@ class CheckoutController extends Controller
 
         }
 
+    }
+    public function save_order() {
+        $data = array();
+        $data['shipping_name'] = $request->shipping_name;
+        $data['shipping_email'] = $request->shipping_email;
+
+        $data['shipping_phone'] = $request->shipping_phone;
+        $data['shipping_address'] = $request->shipping_address;
+        $data['shipping_note'] = $request->shipping_note;
+
+        $shipping_id = DB::table('tbl_shipping')->insertGetId($data);
+        Session::put('shipping_id',$shipping_id);
+
+        return Redirect::to('/payment');
     }
 }

@@ -85,3 +85,7 @@ Route::get('/payment', 'CheckoutController@payment');
 Route::post('/add-customer', 'CheckoutController@add_customer');
 Route::post('/login', 'CheckoutController@login_customer');
 Route::post('/save-checkout-customer', 'CheckoutController@save_checkout_customer');
+
+// Order
+Route::post('/save-order', 'CheckoutController@save_order');
+
