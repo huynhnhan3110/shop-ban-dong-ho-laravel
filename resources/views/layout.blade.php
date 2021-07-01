@@ -95,8 +95,12 @@
 									?>
 									<li><a href="{{URL::to('/payment')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
 									<?php }
-									elseif($customer_id != NULL && $shipping_id == NULL) {?>
+									elseif($customer_id != NULL && $shipping_id == NULL && Cart::count() > 0 ) {?>
 										<li><a href="{{URL::to('/checkout')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+									<?php }
+									elseif($customer_id != NULL && Cart::count() == 0) {
+									?>
+									<li><a onclick="return alert('Bạn chưa có gì trong giỏ hàng, vui lòng thêm một sản phẩm')" href="#"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
 									<?php }
 									else {?>
 										<li><a href="{{URL::to('/login-checkout')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>

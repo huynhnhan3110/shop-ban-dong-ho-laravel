@@ -20,6 +20,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link rel="stylesheet" href="{{asset('public/backend/css/morris.css')}}" type="text/css"/>
 <!-- calendar -->
 <link rel="stylesheet" href="{{asset('public/backend/css/monthly.css')}}">
+<style>.ck-editor__editable {
+    min-height:200px;
+}</style>
 <!-- //calendar -->
 <!-- //font-awesome icons -->
 <script src="{{asset('public/backend/js/jquery2.0.3.min.js')}}"></script>
@@ -154,6 +157,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="{{asset('public/backend/js/flot-chart/excanvas.min.js')}}"></script><![endif]-->
 <script src="{{asset('public/backend/js/jquery.scrollTo.js')}}"></script>
 <!-- morris JavaScript -->	
+<script src="{{asset('public/backend/ckeditor5-build-classic/ckeditor.js')}}"></script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#ckeditor1' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+    ClassicEditor
+    .create( document.querySelector( '#ckeditor2' ) )
+    .catch( error => {
+        console.error( error );
+    } );
+</script>
 <script>
 	$(document).ready(function() {
 		//BOX BUTTON SHOW AND CLOSE

@@ -3,7 +3,7 @@
 <div class="table-agile-info">
   <div class="panel panel-default">
     <div class="panel-heading">
-      LIỆT KÊ DANH MỤC SẢN PHẨM
+      LIỆT KÊ ĐƠN HÀNG
     </div>
     <?php
       $message = Session::get('message');
@@ -57,8 +57,9 @@
             <td>{{ $order->order_status}}</td>
             <td>
               <a href="{{URL::to('/view-order-detail/'.$order->order_id)}}" class="active styling-edit" ui-toggle-class="">
-                <i class="fa fa-pencil-square-o text-success text-active"></i>
+                <i class="fa fa-eye text-success text-active"></i>
               </a>
+              &nbsp;
               <a onclick="return confirm('Bạn có chắc là muốn xóa đơn hàng này không ?')" href="{{URL::to('/delete-order/'.$order->order_id)}}" class="active styling-edit" ui-toggle-class="">
                 <i class="fa fa-times text-danger text"></i>
               </a>

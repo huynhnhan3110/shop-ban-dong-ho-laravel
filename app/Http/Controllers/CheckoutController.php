@@ -148,4 +148,11 @@ class CheckoutController extends Controller
         $products = DB::table('tbl_order_details')->where('tbl_order_details.order_id',$order_id)->get();
         return view('admin.view_order')->with('order_by_id',$order_by_id)->with('order_list',$products);
     }
+    public function delete_order($order_id) {
+        $this->AuthLogin();
+        DB::table('tbl_order_details')->where('order_id',$order_id)->delete();
+        DB::table('tbl_order')->where('order_id',$order_id)->delete();
+        Session::put('message','Xóa đơn hàng thành công');
+        return Redirect::to('/manage-order');
+    }
 }

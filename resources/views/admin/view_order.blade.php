@@ -40,6 +40,7 @@
             <th>Tên người nhận hàng</th>
             <th>Số điện thoại</th>
             <th>Địa chỉ giao hàng</th>
+            <!-- <th>Ghi chú đơn hàng</th> -->
           </tr>
         </thead>
         <tbody>
@@ -48,12 +49,16 @@
             <td>{{$order_by_id->shipping_name}}</td>
             <td>{{$order_by_id->shipping_phone}}</td>
             <td>{{$order_by_id->shipping_address}}</td>
+            <!-- <td></td> -->
           </tr>
           
         </tbody>
       </table>
+      
     </div>
-    
+    <span style="margin: 15px 10px;
+    display: inline-block;
+    color: red;"><b>Ghi chú đơn hàng:</b> {{$order_by_id->shipping_note}}</span>
   </div>
 </div>
 <br><br>
@@ -77,8 +82,8 @@
           <tr>
             <td>{{ $v_order_list->product_name }}</td>
             <td>{{ $v_order_list->product_sales_quanlity }}</td>
-            <td>{{ $v_order_list->product_price }}</td>
-            <td>{{ $v_order_list->product_price*$v_order_list->product_sales_quanlity }}</td>
+            <td>{{ number_format($v_order_list->product_price).' VND' }}</td>
+            <td><b>{{ number_format($v_order_list->product_price*$v_order_list->product_sales_quanlity).' VND' }}</b></td>
           </tr>
           @endforeach
           

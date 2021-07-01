@@ -91,3 +91,4 @@ Route::post('/save-order', 'CheckoutController@save_order');
 Route::get('/manage-order', 'CheckoutController@manage_order');
 
 Route::get('/view-order-detail/{order_id}', 'CheckoutController@view_order_detail');
+Route::get('/delete-order/{order_id}', 'CheckoutController@delete_order');
