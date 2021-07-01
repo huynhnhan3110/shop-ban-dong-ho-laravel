@@ -134,4 +134,18 @@ class CheckoutController extends Controller
 
         return view('admin.manage_order')->with('all_order',$all_order);
     }
+    public function view_order_detail($order_id) {
+        $this->AuthLogin();
+        $order_by_id = DB::table('tbl_order')
+        ->join('tbl_customers','tbl_customers.customer_id','=','tbl_order.customer_id')
+        ->join('tbl_shipping','tbl_shipping.shipping_id','=','tbl_order.shipping_id')
+        ->join('tbl_order_details','tbl_order_details.order_id','=','tbl_order.order_id')
+        ->where('tbl_order.order_id',$order_id)
+        ->select('tbl_order.*','tbl_customers.*','tbl_shipping.*','tbl_order_details.*')->first();
+        // echo "<pre>";
+        // print_r($order_by_id);
+        // echo "<pre>";
+        $products = DB::table('tbl_order_details')->where('tbl_order_details.order_id',$order_id)->get();
+        return view('admin.view_order')->with('order_by_id',$order_by_id)->with('order_list',$products);
+    }
 }
