@@ -75,13 +75,13 @@
                 <form action="{{URL::to('save-order')}}" method="POST">
                     {{ csrf_field() }}
 					<span>
-						<label><input type="checkbox" name="payment_value" value="Thẻ ATM"> Trả trước bằng thẻ ATM</label>
+						<label><input type="checkbox" name="payment_value" value="1"> Trả trước bằng thẻ ATM</label>
 					</span>
 					<span>
-						<label><input type="checkbox" name="payment_value" value="Tiền mặt"> Trả tiền khi nhận hàng</label>
+						<label><input type="checkbox" name="payment_value" value="2"> Trả tiền khi nhận hàng</label>
 					</span>
                     <span>
-						<label><input type="checkbox" name="payment_value" value="Thẻ ghi nợ"> Trả bằng thẻ ghi nợ</label>
+						<label><input type="checkbox" name="payment_value" value="3"> Trả bằng thẻ ghi nợ</label>
 					</span>
                     <input type="submit" class="btn btn-primary sm-10" value="Đặt hàng">
 

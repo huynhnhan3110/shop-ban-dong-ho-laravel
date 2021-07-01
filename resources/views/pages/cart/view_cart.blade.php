@@ -79,11 +79,13 @@
 							<?php
 									$customer_id = Session::get('customer_id');
 								
-									if($customer_id != NULL) {
+									if($customer_id != NULL && Cart::count() == 0) {
 									?>
-									<a class="btn btn-default check_out" href="{{URL::to('/checkout')}}">Thanh toán</a>
+									<a class="btn btn-default check_out" onclick="return alert('Bạn chưa có gì trong giỏ hàng, vui lòng thêm một sản phẩm')" href="#">Thanh toán</a>
 									<?php }
-									else {?>
+									elseif($customer_id != NULL && Cart::count() != 0){?>
+										<a class="btn btn-default check_out" href="{{URL::to('/checkout')}}">Thanh toán</a>
+									<?php }  else { ?>
 										<a class="btn btn-default check_out" href="{{URL::to('/login-checkout')}}">Thanh toán</a>
 									<?php } ?>
 							

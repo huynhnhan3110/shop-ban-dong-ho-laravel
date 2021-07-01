@@ -88,4 +88,4 @@ Route::post('/save-checkout-customer', 'CheckoutController@save_checkout_custome
 
 // Order
 Route::post('/save-order', 'CheckoutController@save_order');
-
+Route::get('/manage-order', 'CheckoutController@manage_order');
