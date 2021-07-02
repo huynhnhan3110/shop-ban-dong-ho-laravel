@@ -41,7 +41,14 @@ class ProductController extends Controller
         $data['product_desc'] = $request->product_desc;
         $data['product_price'] = $request->product_price;
         $data['product_status'] = $request->selectProductStatus;
-        
+        $validated = $request->validate([
+            // 'product_name' => 'required|unique:posts|max:255',
+            'product_name' => 'required|min:5',
+            'product_price' => 'required|numeric',
+            'product_image' => 'required|file',
+            'product_desc' => 'required',
+            'product_content' => 'required',
+        ]);
         $file_select = $request->file('product_image');
         if($file_select != null) {
             $split = explode('.',$file_select->getClientOriginalName());

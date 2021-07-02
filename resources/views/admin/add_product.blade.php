@@ -20,25 +20,41 @@
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Tên sản phẩm</label>
-                                    <input type="text" name="product_name" class="form-control" id="exampleInputEmail1" placeholder="Tên sản phẩm">
+                                    <input type="text" value="{{ old('product_name') }}" name="product_name" class="form-control" id="exampleInputEmail1" placeholder="Tên sản phẩm">
+                                    @error('product_name')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
+                               
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Giá sản phẩm</label>
-                                    <input type="text" name="product_price" class="form-control" id="exampleInputEmail1" placeholder="Tên sản phẩm">
+                                    <input type="text" value="{{ old('product_price') }}" name="product_price" class="form-control" id="exampleInputEmail1" placeholder="Giá sản phẩm">
+                                    @error('product_price')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Hình ảnh sản phẩm</label>
-                                    <input type="file" name="product_image" class="form-control" id="exampleInputEmail1" placeholder="Tên sản phẩm">
+                                    <input type="file" name="product_image" class="form-control" id="exampleInputEmail1">
+                                    @error('product_image')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Mô tả sản phẩm</label>
                                     <textarea rows="8" class="form-control" name="product_desc" id="ckeditor1" placeholder="Mô tả sản phẩm">
                                     </textarea>
+                                    @error('product_desc')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Nội dung sản phẩm</label>
                                     <textarea rows="8" class="form-control" name="product_content" id="ckeditor2" placeholder="Mô tả sản phẩm">
                                     </textarea>
+                                    @error('product_content')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputFile">Danh mục</label>

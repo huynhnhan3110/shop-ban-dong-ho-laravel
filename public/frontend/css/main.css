@@ -882,10 +882,11 @@ h2.title {
 }
 
 .productinfo img{
-  width: 100%;
+  height: 225px;
 }
 
 .productinfo{
+  height: 389px;
  position:relative;
 }
 

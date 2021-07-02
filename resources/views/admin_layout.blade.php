@@ -25,6 +25,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 }</style>
 <!-- //calendar -->
 <!-- //font-awesome icons -->
+
 <script src="{{asset('public/backend/js/jquery2.0.3.min.js')}}"></script>
 <script src="{{asset('public/backend/js/raphael-min.js')}}"></script>
 <script src="{{asset('public/backend/js/morris.js')}}"></script>
@@ -158,6 +159,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('public/backend/js/jquery.scrollTo.js')}}"></script>
 <!-- morris JavaScript -->	
 <script src="{{asset('public/backend/ckeditor5-build-classic/ckeditor.js')}}"></script>
+<script>
+    $.validate({
+
+    });
+</script>
 <script>
     ClassicEditor
         .create( document.querySelector( '#ckeditor1' ) )
