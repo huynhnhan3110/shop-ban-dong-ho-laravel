@@ -34,15 +34,26 @@
 						<h2>Đăng ký tài khoản</h2>
 						<form action="{{URL::to('/add-customer')}}" method="POST">
 							{{csrf_field()}}
-							<input type="text" name="customer_name" placeholder="Họ tên"/>
-							<input type="email" name="customer_email" placeholder="Địa chỉ email"/>
-							<input type="tel" name="customer_phone" placeholder="Số điện thoại">
-							<input type="password" name="customer_password" placeholder="Mật khẩu"/>
+							<input type="text" name="customer_name" placeholder="Họ tên" id="customer_name"/>
+							@error('customer_name')
+							<span class="alert-form-span">{{ $message }}</span>
+							@enderror
+							<input type="email" name="customer_email" placeholder="Địa chỉ email" id="customer_email"/>
+							@error('customer_email')
+							<span class="alert-form-span">{{ $message }}</span>
+							@enderror
+							<input type="tel" name="customer_phone" placeholder="Số điện thoại" id="customer_phone">
+							@error('customer_phone')
+							<span class="alert-form-span">{{ $message }}</span>
+							@enderror
+							<input type="password" name="customer_password" placeholder="Mật khẩu" id="customer_password"/>
+							@error('customer_password')
+							<span class="alert-form-span">{{ $message }}</span>
+							@enderror
 							<button type="submit" class="btn btn-default">Đăng ký</button>
 						</form>
 					</div><!--/sign up form-->
 				</div>
 			</div>
 	</section><!--/form-->
-
 @endsection

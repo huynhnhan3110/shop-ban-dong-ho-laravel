@@ -32,6 +32,13 @@ class CheckoutController extends Controller
         $data['customer_phone'] = $request->customer_phone;
         $data['customer_password'] = md5($request->customer_password);
 
+        $validated = $request->validate([
+            'customer_name' => 'required|min:5',
+            'customer_email' => 'required|email',
+            'customer_phone' => 'required|numeric|min:9',
+            'customer_password' => 'required|min:6',
+        ]);
+
         $customer_id = DB::table('tbl_customers')->insertGetId($data);
         $customer_name = $request->customer_name;
 

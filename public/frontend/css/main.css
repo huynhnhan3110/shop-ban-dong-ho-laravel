@@ -2507,5 +2507,11 @@ td.description {
 .contact-info .social-networks ul li a:hover{
   color: #FE980F;
 }
-
+.alert-form-span {
+  color: red;
+  margin-bottom: 10px;
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 14px;
+}
 
