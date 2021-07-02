@@ -1,5 +1,5 @@
 @extends('layout')
-@section("title","Trang xác nhận thanh toán");
+@section("title","Trang xác nhận thanh toán")
 @section("content")
 <section id="cart_items">
 			<div class="breadcrumbs">

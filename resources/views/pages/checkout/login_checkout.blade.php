@@ -1,5 +1,5 @@
 @extends('layout')
-@section("title","Trang đăng nhập thanh toán");
+@section("title","Trang đăng nhập thanh toán")
 @section("content")
 <section id="form"><!--form-->
 			<div class="row">
@@ -14,7 +14,6 @@
 									Session::put('message',NULL);
 								}
 							?></span>
-							
 							{{ csrf_field() }}
 							<input type="email" placeholder="Địa chỉ email" name="email_account"/>
 							<input type="password" placeholder="Mật khẩu" name="password_account" />

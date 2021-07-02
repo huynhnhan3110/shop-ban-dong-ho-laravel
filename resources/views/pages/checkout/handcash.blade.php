@@ -1,5 +1,5 @@
 @extends('layout')
-@section("title","Đặt hàng thành công");
+@section("title","Đặt hàng thành công")
 @section("content")
 <section id="cart_items">
     <div class="review-payment">
