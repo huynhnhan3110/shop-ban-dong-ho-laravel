@@ -34,6 +34,7 @@ class CategoryProducts extends Controller
         $data = array();
         $data['category_name'] = $request->category_product_name;
         $data['category_desc'] = $request->category_product_desc;
+        $data['category_product_keywords'] = $request->category_product_keywords;
         $data['category_status'] = $request->selectStatus;
 
         DB::table('tbl_category_product')->insert($data);
@@ -67,6 +68,7 @@ class CategoryProducts extends Controller
         $data = array();
         $data['category_name'] = $request->category_product_name;
         $data['category_desc'] = $request->category_product_desc;
+        $data['category_product_keywords'] = $request->category_product_keywords;
 
         DB::table('tbl_category_product')->where('category_id',$category_product_id)->update($data);
         Session::put('message', 'Cập nhật danh mục sản phẩm thành công');
@@ -79,16 +81,33 @@ class CategoryProducts extends Controller
         return Redirect::to('all-category-product');
     }
     // End Category Admin Page
-    public function category_by_id($category_id) {
+    public function category_by_id(Request $request,$category_id,) {
+       
+
         $cate_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $branch_product = DB::table('tbl_branch_product')->where('branch_status','1')->orderby('branch_id','desc')->get();
 
         $category_by_id = DB::table('tbl_product')->join('tbl_category_product','tbl_product.category_id','=','tbl_category_product.category_id')
         ->where('tbl_category_product.category_id', $category_id)->get();
-
+        
+       
         $category_name = DB::table('tbl_category_product')->where('category_id',$category_id)->limit(1)->get();
+        
+        foreach($category_name as $key => $val) {
+             // seo meta
+             $meta_title = $val->category_name;
+            $meta_desc = $val->category_desc;
+            $meta_keywords = $val->category_product_keywords;
+            $meta_canonical = $request->url();
+            // end seo meta
+        }
+
+        
 
         return view('pages.category.category_by_id')->with('category_product',$cate_product)->with('branch_product',$branch_product)
-        ->with('category_by_id',$category_by_id)->with('category_name',$category_name);
+        ->with('category_by_id',$category_by_id)->with('category_name',$category_name)->with('meta_title',$meta_title)
+        ->with('meta_desc',$meta_desc)
+        ->with('meta_keywords',$meta_keywords)
+        ->with('meta_canonical',$meta_canonical);
     }
 }

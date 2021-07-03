@@ -3,9 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>@yield('title')</title>
+    <meta name="description" content="{{ $meta_desc }}">
+	<meta name="robots" content="INDEX,FOLLOW"/>
+	<meta name="keywords" content="{{ $meta_keywords }}">
+	<link rel = "canonical" href = "{{ $meta_canonical }}" />
+    <title>{{ $meta_title }}</title>
     <link href="{{asset('public/frontend/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/prettyPhoto.css')}}" rel="stylesheet">

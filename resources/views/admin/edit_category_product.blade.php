@@ -28,7 +28,10 @@
                                     <textarea rows="8" class="form-control" name="category_product_desc" id="exampleInputPassword1" placeholder="Mô tả danh mục">{{$edit_value->category_desc}}
                                     </textarea>
                                 </div>
-                               
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Từ khóa danh mục</label>
+                                    <input type="text" name="category_product_keywords" class="form-control" id="exampleInputEmail1" placeholder="Từ khóa" value="{{$edit_value->category_product_keywords}}">
+                                </div>
                                 <button type="submit" class="btn btn-info">Lưu</button>
                             </form>
                             @endforeach

@@ -28,6 +28,10 @@
                                     </textarea>
                                 </div>
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Từ khóa danh mục</label>
+                                    <input type="text" name="category_product_keywords" class="form-control" id="exampleInputEmail1" placeholder="Từ khóa">
+                                </div>
+                                <div class="form-group">
                                     <label for="exampleInputFile">Hiển thị</label>
                                     <select class="form-control input-sm m-bot15" name="selectStatus">
                                         <option value="0">Ẩn</option>
