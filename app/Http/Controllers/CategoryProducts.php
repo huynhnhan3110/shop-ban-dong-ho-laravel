@@ -105,7 +105,8 @@ class CategoryProducts extends Controller
         
 
         return view('pages.category.category_by_id')->with('category_product',$cate_product)->with('branch_product',$branch_product)
-        ->with('category_by_id',$category_by_id)->with('category_name',$category_name)->with('meta_title',$meta_title)
+        ->with('category_by_id',$category_by_id)->with('category_name',$category_name)
+        ->with('meta_title',$meta_title)
         ->with('meta_desc',$meta_desc)
         ->with('meta_keywords',$meta_keywords)
         ->with('meta_canonical',$meta_canonical);

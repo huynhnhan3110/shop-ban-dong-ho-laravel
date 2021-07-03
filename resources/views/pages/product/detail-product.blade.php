@@ -4,7 +4,6 @@
 @section("content")
 
 @foreach($product_by_id as $key => $productDetail)
-@section('title',$productDetail->product_name)
 <div class="product-details"><!--product-details-->
     <div class="col-sm-5">
         <div class="view-product">

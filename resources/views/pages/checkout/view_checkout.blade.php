@@ -9,7 +9,7 @@
 				</ol>
 			</div><!--/breadcrums-->
 			<div class="register-req">
-				<p>Vui lòng đăng nhập hoặc đăng ký để tiến hành thanh toán</p>
+				<p>Vui lòng nhập thông tin giao hàng để tiến hành thanh toán</p>
 			</div><!--/register-req-->
 
 			<div class="shopper-informations">

@@ -22,27 +22,49 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Tên sản phẩm</label>
                                     <input type="text" name="product_name" class="form-control" id="exampleInputEmail1" value="{{$pro->product_name}}">
+                                    @error('product_name')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Giá sản phẩm</label>
                                     <input type="text" name="product_price" class="form-control" id="exampleInputEmail1" value="{{$pro->product_price}}">
+                                    @error('product_price')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Hình ảnh sản phẩm</label>
                                     <input type="file" name="product_image" class="form-control" id="exampleInputEmail1">
                                     <img src="{{URL::to('public/upload/product/'.$pro->product_image)}}" alt="" width="100" height="100">
+                                    @error('product_image')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Từ khóa sản phẩm</label>
+                                    <input type="text" value="{{ old('product_keywords') }}" name="product_keywords" class="form-control" id="exampleInputEmail1" placeholder="Từ khóa sản phẩm">
+                                    @error('product_keywords')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Mô tả sản phẩm</label>
-                                    <textarea rows="8" class="form-control" name="product_desc" id="exampleInputPassword1">
+                                    <textarea rows="8" class="form-control" name="product_desc" id="ckeditor3">
                                     {{$pro->product_desc}}
                                     </textarea>
+                                    @error('product_desc')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Nội dung sản phẩm</label>
-                                    <textarea rows="8" class="form-control" name="product_content" id="exampleInputPassword1" placeholder="Mô tả sản phẩm">
+                                    <textarea rows="8" class="form-control" name="product_content" id="ckeditor4" placeholder="Mô tả sản phẩm">
                                     {{$pro->product_content}}
                                     </textarea>
+                                    @error('product_content')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 @endforeach
                                 <div class="form-group">

@@ -35,6 +35,8 @@ class ProductController extends Controller
         $this->AuthLogin();
         $data = array();
         $data['product_name'] = $request->product_name;
+        $data['product_keywords'] = $request->product_keywords;
+
         $data['branch_id'] = $request->selectBranch;
         $data['category_id'] = $request->selectCategory;
         $data['product_content'] = $request->product_content;
@@ -48,6 +50,7 @@ class ProductController extends Controller
             'product_image' => 'required|file',
             'product_desc' => 'required',
             'product_content' => 'required',
+            'product_keywords' => 'required',
         ]);
         $file_select = $request->file('product_image');
         if($file_select != null) {
@@ -92,6 +95,7 @@ class ProductController extends Controller
     public function update_product(Request $request, $product_id) {
         $this->AuthLogin();
         $data = array();
+        $data['product_keywords'] = $request->product_keywords;
         $data['product_name'] = $request->product_name;
         $data['branch_id'] = $request->selectBranch;
         $data['category_id'] = $request->selectCategory;
@@ -100,6 +104,16 @@ class ProductController extends Controller
         $data['product_price'] = $request->product_price;
         $data['product_status'] = $request->selectProductStatus;
         
+        $validated = $request->validate([
+            // 'product_name' => 'required|unique:posts|max:255',
+            'product_name' => 'required|min:5',
+            'product_price' => 'required|numeric',
+            'product_image' => 'required|file',
+            'product_desc' => 'required',
+            'product_content' => 'required',
+            'product_keywords' => 'required',
+        ]);
+
         $file_select = $request->file('product_image');
         if($file_select != null) {
             $split = explode('.',$file_select->getClientOriginalName());
@@ -121,7 +135,9 @@ class ProductController extends Controller
     }
 
     // End Admin Page
-    public function detail_product($product_id) {
+    public function detail_product($product_id, Request $request) {
+            
+
         $cate_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $branch_product = DB::table('tbl_branch_product')->where('branch_status','1')->orderby('branch_id','desc')->get();
 
@@ -136,10 +152,22 @@ class ProductController extends Controller
         ->join('tbl_category_product','tbl_product.category_id','=','tbl_category_product.category_id')
         ->where('tbl_product.category_id',$category_id)->whereNotIn('tbl_product.product_id',[$product_id])->get();
     
+        foreach($product_by_id as $key => $val) {
+            // seo meta
+            $meta_title = $val->product_name;
+           $meta_desc = $val->product_desc;
+           $meta_keywords = $val->product_keywords;
+           $meta_canonical = $request->url();
+           // end seo meta
+       }
 
         return view('pages.product.detail-product')->with('category_product',$cate_product)->with('branch_product',$branch_product)
         ->with('product_by_id',$product_by_id)
-        ->with('relate_product',$relate_product);
+        ->with('relate_product',$relate_product)
+        ->with('meta_title',$meta_title)
+        ->with('meta_desc',$meta_desc)
+        ->with('meta_keywords',$meta_keywords)
+        ->with('meta_canonical',$meta_canonical);
     }
 
     

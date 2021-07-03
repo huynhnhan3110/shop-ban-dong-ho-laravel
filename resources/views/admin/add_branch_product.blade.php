@@ -23,6 +23,10 @@
                                     <input type="text" name="branch_product_name" class="form-control" id="exampleInputEmail1" placeholder="Tên thương hiệu">
                                 </div>
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Từ khóa thương hiệu</label>
+                                    <input type="text" name="branch_product_keywords" class="form-control" id="exampleInputEmail1" placeholder="Từ khóa thương hiệu">
+                                </div>
+                                <div class="form-group">
                                     <label for="exampleInputPassword1">Mô tả thương hiệu</label>
                                     <textarea rows="8" class="form-control" name="branch_product_desc" id="exampleInputPassword1" placeholder="Mô tả thương hiệu">
                                     </textarea>

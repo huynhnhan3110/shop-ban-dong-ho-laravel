@@ -41,6 +41,13 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Từ khóa sản phẩm</label>
+                                    <input type="text" value="{{ old('product_keywords') }}" name="product_keywords" class="form-control" id="exampleInputEmail1" placeholder="Từ khóa sản phẩm">
+                                    @error('product_keywords')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
                                     <label for="exampleInputPassword1">Mô tả sản phẩm</label>
                                     <textarea rows="8" class="form-control" name="product_desc" id="ckeditor1" placeholder="Mô tả sản phẩm">
                                     </textarea>

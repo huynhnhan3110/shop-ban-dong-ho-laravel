@@ -31,12 +31,23 @@ class HomeController extends Controller
         ->with('meta_canonical',$meta_canonical);
     }
     public function search(Request $request) {
+        
+
         $cate_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $branch_product = DB::table('tbl_branch_product')->where('branch_status','1')->orderby('branch_id','desc')->get();
        
         $keywords = $request->keywordsubmit;
         $search_product = DB::table('tbl_product')->where('product_name','like','%'.$keywords.'%')->get();
-
-        return view('pages.product.search')->with('category_product',$cate_product)->with('branch_product',$branch_product)->with('search_product',$search_product);    
+        // seo meta
+        $meta_title = "Tìm '$keywords' trong Xwatch247";
+        $meta_desc = "Trang tìm kiếm sản phẩm của shop";
+        $meta_keywords = "search xwatch247, tìm kiếm xwatch247";
+        $meta_canonical = $request->url();
+        // end seo meta
+        return view('pages.product.search')->with('category_product',$cate_product)->with('branch_product',$branch_product)->with('search_product',$search_product)
+        ->with('meta_title',$meta_title)
+        ->with('meta_desc',$meta_desc)
+        ->with('meta_keywords',$meta_keywords)
+        ->with('meta_canonical',$meta_canonical);    
     }
 }

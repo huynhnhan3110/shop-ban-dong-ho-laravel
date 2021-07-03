@@ -175,6 +175,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     .catch( error => {
         console.error( error );
     } );
+    ClassicEditor
+    .create( document.querySelector( '#ckeditor3' ) )
+    .catch( error => {
+        console.error( error );
+    } );
+    ClassicEditor
+    .create( document.querySelector( '#ckeditor4' ) )
+    .catch( error => {
+        console.error( error );
+    } );
 </script>
 <script>
 	$(document).ready(function() {

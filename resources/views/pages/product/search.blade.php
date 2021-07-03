@@ -1,5 +1,4 @@
 @extends('layout')
-@section('title','Tìm kiếm sản phẩm')
 @section("content")
 <div class="features_items"><!--features_items-->
 <h2 class="title text-center">Kết quả tìm kiếm</h2>

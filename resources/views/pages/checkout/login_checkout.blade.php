@@ -1,5 +1,4 @@
 @extends('layout')
-@section("title","Trang đăng nhập thanh toán")
 @section("content")
 <section id="form"><!--form-->
 			<div class="row">
