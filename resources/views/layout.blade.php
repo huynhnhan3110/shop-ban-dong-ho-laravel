@@ -8,6 +8,13 @@
 	<meta name="keywords" content="{{ $meta_keywords }}">
 	<link rel = "canonical" href = "{{ $meta_canonical }}" />
     <title>{{ $meta_title }}</title>
+	<meta property="og:image" content="{{$image_og}}" />
+	<meta property="og:site_name" content="shopbanhanglaravel.com" /> <!-- Thay doi domain -->
+	<meta property="og:description" content="{{$meta_desc}}" />
+	<meta property="og:title" content="{{$meta_title}}" />
+	<meta property="og:url" content="{{$meta_canonical}}" />
+	<meta property="og:type" content="website" />
+
     <link href="{{asset('public/frontend/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/prettyPhoto.css')}}" rel="stylesheet">
@@ -453,5 +460,7 @@
 	<script src="{{asset('public/frontend/js/price-range.js')}}"></script>
     <script src="{{asset('public/frontend/js/jquery.prettyPhoto.js')}}"></script>
     <script src="{{asset('public/frontend/js/main.js')}}"></script>
+	<div id="fb-root"></div>
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v11.0&appId=1011902732305839&autoLogAppEvents=1" nonce="D3BpO0xr"></script>
 </body>
 </html>

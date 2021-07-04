@@ -52,7 +52,7 @@
             {{ csrf_field() }}
             <span>
                 <span>{{number_format($productDetail->product_price).' VND'}}</span>
-                <label>Quantity:</label>
+                <label>Số lượng:</label>
                 <input name="productID" type="hidden" value="{{ $productDetail->product_id }}"/>
                 <input name="quanlity" type="number" value="1" min="1"/>
                 <button type="submit" class="btn btn-fefault cart">
@@ -66,7 +66,18 @@
 
             <p><b>Danh mục:</b> {{$productDetail->category_name}}</p>
             <p><b>Thương hiệu:</b> {{$productDetail->branch_name}}</p>
-            <a href=""><img src="{{URL::to('public/frontend/img/product-details/share.png')}}" class="share img-responsive"  alt="" /></a>
+            <div class="fb-share-button" 
+                data-href="{{$meta_canonical}}" 
+                data-layout="button_count" data-size="small">
+                    <a target="_blank" 
+                        href="https://www.facebook.com/sharer/sharer.php?u={{ $meta_canonical }}&amp;src=sdkpreparse" 
+                        class="fb-xfbml-parse-ignore">
+                        Share
+                    </a>
+                    
+            </div>
+            <div class="fb-like" data-href="{{ $meta_canonical }}" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="false"></div>        
+            <!-- <a href=""><img src="{{URL::to('public/frontend/img/product-details/share.png')}}" class="share img-responsive"  alt="" /></a> -->
         </div><!--/product-information-->
     </div>
 </div><!--/product-details-->
@@ -124,6 +135,10 @@
 </div><!--/category-tab-->
 
 @endforeach
+<div class="facebook-comment"><!--fb comment-->
+    <h2 class="title text-center">Bình luận facebook</h2>
+    <div class="fb-comments" data-href="{{ $meta_canonical }}" data-width="100%" data-numposts="5"></div>
+</div>
 <div class="recommended_items"><!--recommended_items-->
     <h2 class="title text-center">Sản phẩm gợi ý</h2>
     

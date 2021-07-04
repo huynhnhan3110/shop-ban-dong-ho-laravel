@@ -24,6 +24,7 @@ class CheckoutController extends Controller
         $meta_desc = "Đăng nhập hoặc đăng ký tài khoản của shop";
         $meta_keywords = "đăng nhập xwatch247, xwatch247 login";
         $meta_canonical = $request->url();
+        $image_og = "";
 
         $cate_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $branch_product = DB::table('tbl_branch_product')->where('branch_status','1')->orderby('branch_id','desc')->get();
@@ -31,7 +32,8 @@ class CheckoutController extends Controller
         ->with('meta_title',$meta_title)
         ->with('meta_desc',$meta_desc)
         ->with('meta_keywords',$meta_keywords)
-        ->with('meta_canonical',$meta_canonical);
+        ->with('meta_canonical',$meta_canonical)
+        ->with('image_og',$image_og);
         
     }
     public function add_customer(Request $request) {
@@ -61,6 +63,7 @@ class CheckoutController extends Controller
         $meta_desc = "Trang nhập thông tin giao hàng của bạn";
         $meta_keywords = "giao hàng xwatch247, xwatch247 checkout";
         $meta_canonical = $request->url();
+        $image_og = "";
 
         $cate_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $branch_product = DB::table('tbl_branch_product')->where('branch_status','1')->orderby('branch_id','desc')->get();
@@ -68,7 +71,8 @@ class CheckoutController extends Controller
         ->with('meta_title',$meta_title)
         ->with('meta_desc',$meta_desc)
         ->with('meta_keywords',$meta_keywords)
-        ->with('meta_canonical',$meta_canonical);
+        ->with('meta_canonical',$meta_canonical)
+        ->with('image_og',$image_og);
     }
     public function save_checkout_customer(Request $request) {
         $data = array();
@@ -89,14 +93,15 @@ class CheckoutController extends Controller
         $meta_desc = "Trang Chọn phương thức thanh toán của bạn";
         $meta_keywords = "thanh toán xwatch247, xwatch247 payment";
         $meta_canonical = $request->url();
-
+        $image_og = "";
         $cate_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $branch_product = DB::table('tbl_branch_product')->where('branch_status','1')->orderby('branch_id','desc')->get();
         return view('pages.checkout.payment')->with('category_product',$cate_product)->with('branch_product',$branch_product)
         ->with('meta_title',$meta_title)
         ->with('meta_desc',$meta_desc)
         ->with('meta_keywords',$meta_keywords)
-        ->with('meta_canonical',$meta_canonical);
+        ->with('meta_canonical',$meta_canonical)
+        ->with('image_og',$image_og);
     }
     public function logout_checkout() {
         Session::put('shipping_id',null);
@@ -159,12 +164,14 @@ class CheckoutController extends Controller
             $meta_desc = "";
             $meta_keywords = "";
             $meta_canonical = $request->url();
-            
+            $image_og = "";
+
             return view('pages.checkout.handcash')->with('category_product',$cate_product)->with('branch_product',$branch_product)
             ->with('meta_title',$meta_title)
             ->with('meta_desc',$meta_desc)
             ->with('meta_keywords',$meta_keywords)
-            ->with('meta_canonical',$meta_canonical);
+            ->with('meta_canonical',$meta_canonical)
+            ->with('image_og',$image_og);
         }elseif($data['payment_method'] == 3) {
             Cart::destroy();
             echo "Đơn này trả Thẻ ATM";

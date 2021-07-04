@@ -158,6 +158,7 @@ class ProductController extends Controller
            $meta_desc = $val->product_desc;
            $meta_keywords = $val->product_keywords;
            $meta_canonical = $request->url();
+           $image_og = url('/').'/public/upload/product/'.$val->product_image;
            // end seo meta
        }
 
@@ -167,7 +168,8 @@ class ProductController extends Controller
         ->with('meta_title',$meta_title)
         ->with('meta_desc',$meta_desc)
         ->with('meta_keywords',$meta_keywords)
-        ->with('meta_canonical',$meta_canonical);
+        ->with('meta_canonical',$meta_canonical)
+        ->with('image_og',$image_og);
     }
 
     
