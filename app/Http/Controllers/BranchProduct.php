@@ -53,14 +53,16 @@ class BranchProduct extends Controller
     }
     public function unactive_branch_product($branch_product_id) {
         $this->AuthLogin();
-        DB::table('tbl_branch_product')->where('branch_id',$branch_product_id)->update(['branch_status'=>0]);
+        Brand::find($branch_product_id)->update(['branch_status' => 0]);
+        // DB::table('tbl_branch_product')->where('branch_id',$branch_product_id)->update(['branch_status'=>0]);
         Session::put('message', 'Hủy kích hoạt thương hiệu sản phẩm thành công');
         return Redirect::to('all-branch-product');
 
     }
     public function active_branch_product($branch_product_id) {
         $this->AuthLogin();
-        DB::table('tbl_branch_product')->where('branch_id',$branch_product_id)->update(['branch_status'=>1]);
+        Brand::find($branch_product_id)->update(['branch_status'=>1]);
+        // DB::table('tbl_branch_product')->where('branch_id',$branch_product_id)->update(['branch_status'=>1]);
         Session::put('message', 'Kích hoạt thương hiệu sản phẩm thành công');
         return Redirect::to('all-branch-product');
 
@@ -93,13 +95,15 @@ class BranchProduct extends Controller
     }
     public function delete_branch_product($branch_product_id) {
         $this->AuthLogin();
-        DB::table('tbl_branch_product')->where('branch_id',$branch_product_id)->delete();
+        Brand::find($branch_product_id)->delete();
+        // DB::table('tbl_branch_product')->where('branch_id',$branch_product_id)->delete();
         Session::put('message','Xóa thương hiệu sản phẩm thành công');
         return Redirect::to('all-branch-product');
     }
     // End Branch Admin Page
     public function brand_by_id($brand_id, Request $request) {
         
+
         $cate_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $branch_product = DB::table('tbl_branch_product')->where('branch_status','1')->orderby('branch_id','desc')->get();
 

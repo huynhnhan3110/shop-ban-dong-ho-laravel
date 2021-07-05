@@ -7,6 +7,10 @@ use DB; // dùng để thao tác với csdl.
 use Session; // dùng để  lưu tạm các message sau khi thực hiện một công việc gì đó.
 use App\Http\Requests; // dùng để lấy dữ liệu từ form
 use Illuminate\Support\Facades\Redirect; // dùng để chuyển hướng
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Brand;
+
 session_start();
 class ProductController extends Controller
 {
@@ -19,30 +23,38 @@ class ProductController extends Controller
     }
     public function add_product() {
         $this->AuthLogin();
-        $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
-        $branch_product = DB::table('tbl_branch_product')->orderby('branch_id','desc')->get();
+        $cate_product = Category::orderby('category_id','DESC')->get();
+        
+        // $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
+        $branch_product = Brand::orderby('branch_id','desc')->get();
+        
+        // $branch_product = DB::table('tbl_branch_product')->orderby('branch_id','desc')->get();
 
         return view('admin.add_product')->with('category_product',$cate_product)->with('branch_product',$branch_product);
     }
     public function all_product() {
         $this->AuthLogin();
-        $all_product = DB::table('tbl_product')->join('tbl_branch_product','tbl_product.branch_id','=','tbl_branch_product.branch_id')
+        $all_product = Product::join('tbl_branch_product','tbl_product.branch_id','=','tbl_branch_product.branch_id')
         ->join('tbl_category_product','tbl_product.category_id','=','tbl_category_product.category_id')
         ->orderby('product_id','desc')->get();
+        // $all_product = DB::table('tbl_product')->join('tbl_branch_product','tbl_product.branch_id','=','tbl_branch_product.branch_id')
+        // ->join('tbl_category_product','tbl_product.category_id','=','tbl_category_product.category_id')
+        // ->orderby('product_id','desc')->get();
         return view('admin.all_product')->with('all_product',$all_product);
     }
     public function save_product(Request $request) {
         $this->AuthLogin();
-        $data = array();
-        $data['product_name'] = $request->product_name;
-        $data['product_keywords'] = $request->product_keywords;
-
-        $data['branch_id'] = $request->selectBranch;
-        $data['category_id'] = $request->selectCategory;
-        $data['product_content'] = $request->product_content;
-        $data['product_desc'] = $request->product_desc;
-        $data['product_price'] = $request->product_price;
-        $data['product_status'] = $request->selectProductStatus;
+        $product = new Product();
+        $data = $request->all();
+        $product->category_id = $data['selectCategory'];
+        $product->branch_id = $data['selectBranch'];
+        $product->product_content = $data['product_content'];
+        $product->product_keywords = $data['product_keywords'];
+        $product->product_name = $data['product_name'];
+        $product->product_desc = $data['product_desc'];
+        $product->product_price = $data['product_price'];
+        $product->product_status = $data['selectProductStatus'];
+        
         $validated = $request->validate([
             // 'product_name' => 'required|unique:posts|max:255',
             'product_name' => 'required|min:5',
@@ -60,33 +72,41 @@ class ProductController extends Controller
             $new_image_file = $get_image_name.rand(0,99).'.'.$get_extension; // tao ten moi ket hop random va lay duoi.
             $file_select->move('public/upload/product/',$new_image_file);
             $data['product_image'] = $new_image_file;
+            $product->product_image = $data['product_image'];
+
         }
-        else {$data['product_image'] = '';}
-        DB::table('tbl_product')->insert($data);
+        else {$product->product_image = '';}
+        // DB::table('tbl_product')->insert($data);
+        $product->save();
         Session::put('message','Thêm sản phẩm thành công');
         
         return Redirect::to('all-product');
     }
     public function unactive_product($product_id) {
         $this->AuthLogin();
-        DB::table('tbl_product')->where('product_id',$product_id)->update(['product_status'=>0]);
+        Product::find($product_id)->update(['product_status'=>0]);
+        // DB::table('tbl_product')->where('product_id',$product_id)->update(['product_status'=>0]);
         Session::put('message', 'Hủy kích hoạt sản phẩm thành công');
         return Redirect::to('all-product');
 
     }
     public function active_product($product_id) {
         $this->AuthLogin();
-        DB::table('tbl_product')->where('product_id',$product_id)->update(['product_status'=>1]);
+        Product::find($product_id)->update(['product_status'=>1]);
+        // DB::table('tbl_product')->where('product_id',$product_id)->update(['product_status'=>1]);
         Session::put('message', 'Kích hoạt sản phẩm thành công');
         return Redirect::to('all-product');
 
     }
     public function edit_product($product_id) {
         $this->AuthLogin();
-        $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
-        $branch_product = DB::table('tbl_branch_product')->orderby('branch_id','desc')->get();
+        $cate_product = Category::orderBy('category_id','desc')->get();
+        $branch_product = Brand::orderBy('branch_id','desc')->get();
+        // $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
+        // $branch_product = DB::table('tbl_branch_product')->orderby('branch_id','desc')->get();
 
-        $edit_product = DB::table('tbl_product')->where('product_id',$product_id)->get();
+        $edit_product = Product::find($product_id);
+        // $edit_product = DB::table('tbl_product')->where('product_id',$product_id)->get();
         $manager_branch_product = view('admin.edit_product')->with('edit_product',$edit_product)
         ->with('category_product',$cate_product)->with('branch_product',$branch_product);
 
@@ -108,7 +128,6 @@ class ProductController extends Controller
             // 'product_name' => 'required|unique:posts|max:255',
             'product_name' => 'required|min:5',
             'product_price' => 'required|numeric',
-            'product_image' => 'required|file',
             'product_desc' => 'required',
             'product_content' => 'required',
             'product_keywords' => 'required',

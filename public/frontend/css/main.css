@@ -2514,4 +2514,7 @@ td.description {
   margin-left: 5px;
   font-size: 14px;
 }
-
+#details, #companyprofile {
+  padding-left: 25px;
+  padding-right: 25px;
+}

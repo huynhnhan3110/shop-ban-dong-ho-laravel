@@ -12,5 +12,7 @@ class Brand extends Model
     ];
     protected $primaryKey = 'branch_id';
     protected $table = 'tbl_branch_product';
-
+    public function products() {
+        return $this->hasMany('App\Models\Product');
+    }
 }
