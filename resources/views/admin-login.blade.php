@@ -39,8 +39,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<input type="password" class="ggg" name="admin_password" placeholder="Mật khẩu" required="">
 			<span class='text-remember'><input type="checkbox" />Nhớ mật khẩu</span>
 			<h6><a href="#">Quên mật khẩu</a></h6>
+			
+
 				<div class="clearfix"></div>
 				<input type="submit" value="Đăng nhập" name="login">
+				<h6><a href="{{URL::to('/login-fb')}}">Đăng nhập bằng facebook</a></h6>
 		</form>
 		<!-- <p>Don't Have an Account ?<a href="registration.html">Create an account</a></p> -->
 </div>

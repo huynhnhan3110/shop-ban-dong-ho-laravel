@@ -97,3 +97,8 @@ Route::get('/delete-order/{order_id}', 'CheckoutController@delete_order');
 
 Route::get('/contact','HomeController@contact');
 Route::post('/send-mail', 'HomeController@send_mail');
+
+
+// login facebook
+Route::get('/login-fb','AdminController@login_facebook');
+Route::get('/admin/callback','AdminController@callback_facebook');
