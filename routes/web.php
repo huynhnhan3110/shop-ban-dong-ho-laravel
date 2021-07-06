@@ -92,3 +92,8 @@ Route::get('/manage-order', 'CheckoutController@manage_order');
 
 Route::get('/view-order-detail/{order_id}', 'CheckoutController@view_order_detail');
 Route::get('/delete-order/{order_id}', 'CheckoutController@delete_order');
+
+// send mail
+
+Route::get('/contact','HomeController@contact');
+Route::post('/send-mail', 'HomeController@send_mail');
