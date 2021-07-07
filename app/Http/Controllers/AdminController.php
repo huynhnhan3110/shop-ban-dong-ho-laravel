@@ -21,43 +21,42 @@ public function callback_google(){
         $users = Socialite::driver('google')->stateless()->user(); 
         // return $users->email;
         $authUser = $this->findOrCreateUser($users,'google');
+        
         $account_name = Login::where('admin_id',$authUser->user)->first();
         Session::put('admin_name',$account_name->admin_name);
         Session::put('admin_id',$account_name->admin_id);
+        
         return redirect('/dashboard')->with('message', 'Đăng nhập Admin thành công');
       
-       
     }
     public function findOrCreateUser($users,$provider){
         $authUser = Social::where('provider_user_id', $users->id)->first();
         if($authUser){
             return $authUser;
         }
-      
-        $hieu = new Social([
-            'provider_user_id' => $users->id,
-            'provider' => strtoupper($provider)
-        ]);
-
-        $orang = Login::where('admin_email',$users->email)->first();
-
-            if(!$orang){
-                $orang = Login::create([
-                    'admin_name' => $users->name,
-                    'admin_email' => $users->email,
-                    'admin_password' => '',
-
-                    'admin_phone' => '',
-                    'admin_status' => 1
-                ]);
-            }
-        $hieu->login()->associate($orang); // lấy khóa chính làm khóa ngoại của tbl_social
-        $hieu->save();
-
-        $account_name = Login::where('admin_id',$hieu->user)->first(); // tim acc co khoa ngoai cua admin_id 
-        Session::put('admin_name',$account_name->admin_name);
-        Session::put('admin_id',$account_name->admin_id);
-        return redirect('/dashboard')->with('message', 'Đăng nhập Admin thành công');
+        else {
+            $hieu = new Social([
+                'provider_user_id' => $users->id,
+                'provider' => strtoupper($provider)
+            ]);
+    
+            $orang = Login::where('admin_email',$users->email)->first();
+    
+                if(!$orang){
+                    $orang = Login::create([
+                        'admin_name' => $users->name,
+                        'admin_email' => $users->email,
+                        'admin_password' => '',
+    
+                        'admin_phone' => '',
+                        'admin_status' => 1
+                    ]);
+                }
+            $hieu->login()->associate($orang); // lấy khóa chính làm khóa ngoại của tbl_social
+            $hieu->save();
+    
+           return $hieu;
+        }
 
     }
 
