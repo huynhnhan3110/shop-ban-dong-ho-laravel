@@ -34,6 +34,11 @@ return [
         'client_secret' => '778975ce24c48589389078d53d885765',  //client app service face của bạn
         'redirect' => 'http://localhost/shopbanhanglaravel/admin/callback' //callback trả về
     ],
+    'google' => [
+        'client_id' => '174318322290-e7l3c1otg1bvde2nfd4notpqlk95v9nt.apps.googleusercontent.com',
+        'client_secret' => 'tPH865yq4RSmNzwNu5UgRITw',
+        'redirect' => 'http://localhost/shopbanhanglaravel/google/callback' 
+    ],
 
 
 ];

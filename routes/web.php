@@ -102,3 +102,7 @@ Route::post('/send-mail', 'HomeController@send_mail');
 // login facebook
 Route::get('/login-fb','AdminController@login_facebook');
 Route::get('/admin/callback','AdminController@callback_facebook');
+
+// login google
+Route::get('/login-google','AdminController@login_google');
+Route::get('/google/callback','AdminController@callback_google');

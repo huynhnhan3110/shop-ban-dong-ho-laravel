@@ -43,7 +43,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 				<div class="clearfix"></div>
 				<input type="submit" value="Đăng nhập" name="login">
-				<h6><a href="{{URL::to('/login-fb')}}">Đăng nhập bằng facebook</a></h6>
+				<p><a href="{{URL::to('/login-fb')}}">Đăng nhập qua facebook </a>|
+				<a href="{{URL::to('/login-google')}}">Đăng nhập qua Google</a>
+				</p>
+				<p></p>
 		</form>
 		<!-- <p>Don't Have an Account ?<a href="registration.html">Create an account</a></p> -->
 </div>

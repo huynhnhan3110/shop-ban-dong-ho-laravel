@@ -166,7 +166,7 @@
                                     </ul>
                                 </li> 
 								<li><a href="{{URL::to('/view-cart')}}">Giỏ hàng</a></li>
-								<li><a href="contact-us.html">Liên hệ</a></li>
+								<li><a href="{{URL::to('/contact')}}">Liên hệ</a></li>
 							</ul>
 						</div>
 					</div>
