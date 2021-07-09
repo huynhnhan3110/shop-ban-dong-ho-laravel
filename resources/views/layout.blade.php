@@ -95,7 +95,12 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="{{URL::to('/login-checkout')}}"><i class="fa fa-user"></i> Tài khoản</a></li>
+								<li><a href="{{URL::to('/login-checkout')}}"><i class="fa fa-user"></i> Tài khoản<?php
+									$customer_name = Session::get('customer_name');
+									if($customer_name) {
+										echo "(".$customer_name.")";
+									}
+								?></a></li>
 								<li><a href="#"><i class="fa fa-star"></i> Yêu thích</a></li>
 								<?php
 									$customer_id = Session::get('customer_id');
@@ -460,6 +465,7 @@
 	<script src="{{asset('public/frontend/js/price-range.js')}}"></script>
     <script src="{{asset('public/frontend/js/jquery.prettyPhoto.js')}}"></script>
     <script src="{{asset('public/frontend/js/main.js')}}"></script>
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	<div id="fb-root"></div>
 	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v11.0&appId=1011902732305839&autoLogAppEvents=1" nonce="D3BpO0xr"></script>
 </body>

@@ -8,6 +8,7 @@ use Session; // dùng để  lưu tạm các message sau khi thực hiện một
 use App\Http\Requests; // dùng để lấy dữ liệu từ form
 use Illuminate\Support\Facades\Redirect; // dùng để chuyển hướng
 use Cart;
+use App\Rules\Captcha;
 session_start();
 class CheckoutController extends Controller
 {
@@ -48,13 +49,14 @@ class CheckoutController extends Controller
             'customer_email' => 'required|email',
             'customer_phone' => 'required|numeric|min:9',
             'customer_password' => 'required|min:6',
+            'g-recaptcha-response'=>new Captcha(),
         ]);
 
         $customer_id = DB::table('tbl_customers')->insertGetId($data);
         $customer_name = $request->customer_name;
 
         Session::put('customer_id',$customer_id);
-        // Session::put('customer_name',$customer_name);
+        Session::put('customer_name',$customer_name);
         
         return Redirect::to('/checkout');
     }
@@ -106,6 +108,7 @@ class CheckoutController extends Controller
     public function logout_checkout() {
         Session::put('shipping_id',null);
         Session::put('customer_id',null);
+        Session::put('customer_name',null);
         return Redirect::to('/login-checkout');
     }
     public function login_customer(Request $request) {
@@ -117,6 +120,7 @@ class CheckoutController extends Controller
         
         if($result) {
             Session::put('customer_id',$result->customer_id);
+            Session::put('customer_name',$result->customer_name);
             return Redirect::to('/checkout');
         } else {
             Session::put('message','Mật khẩu hoặc tài khoản không đúng, vui lòng nhập lại!');

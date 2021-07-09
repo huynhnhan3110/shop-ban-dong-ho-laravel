@@ -2424,7 +2424,7 @@ input.ggg{
     outline: none;
 	display: table;
     cursor: pointer;
-    margin: 45px auto 31px;
+    margin: 15px auto 31px;
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -o-transition: 0.5s all;

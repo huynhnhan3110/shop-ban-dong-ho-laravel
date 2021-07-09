@@ -9,6 +9,8 @@ use Socialite;
 use App\Models\Social;
 use App\Models\Login;
 use App\Http\Requests;
+use Validator;
+use App\Rules\Captcha;
 use Illuminate\Support\Facades\Redirect;
 session_start();
 class AdminController extends Controller
@@ -117,10 +119,13 @@ public function callback_google(){
         return view('admin.dashboard');
     }
     public function dashboard(Request $request) {
-        
+        $data = $request->validate([
+            'admin_email'=>'required',
+            'admin_password'=>'required',
+            'g-recaptcha-response'=>new Captcha(),
+        ]);
         $admin_email = $request->admin_email;
         $admin_password = md5($request->admin_password);
-        
         $result = Login::where('admin_email',$admin_email)->where('admin_password',$admin_password)->first();
         
         if($result) {

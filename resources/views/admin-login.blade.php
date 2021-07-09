@@ -35,12 +35,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</span>
 		<form action="{{URL::to('/admin_dashboard')}}" method="post">
 			{{ csrf_field() }}
-			<input type="text" class="ggg" name="admin_email" placeholder="Địa chỉ email" required="">
-			<input type="password" class="ggg" name="admin_password" placeholder="Mật khẩu" required="">
+			<ul style="list-style-type: circle;margin-left: 18px;">
+			@foreach($errors->all() as $error) 
+				<li>{{ $error }}</li>
+			@endforeach
+			</ul>
+			<input type="text" class="ggg" name="admin_email" placeholder="Địa chỉ email" >
+			<input type="password" class="ggg" name="admin_password" placeholder="Mật khẩu" >
 			<span class='text-remember'><input type="checkbox" />Nhớ mật khẩu</span>
 			<h6><a href="#">Quên mật khẩu</a></h6>
-			
-
+				<div class="g-recaptcha" style="margin-top:23px; display:inline-block;" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
+				<br/>
 				<div class="clearfix"></div>
 				<input type="submit" value="Đăng nhập" name="login">
 				<p><a href="{{URL::to('/login-fb')}}">Đăng nhập qua facebook </a>|
@@ -58,5 +63,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('public/backend/js/jquery.nicescroll.js')}}"></script>
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="public/backend/js/flot-chart/excanvas.min.js"></script><![endif]-->
 <script src="{{asset('public/backend/js/jquery.scrollTo.js')}}"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </body>
 </html>

@@ -48,6 +48,10 @@
 							@error('customer_password')
 							<span class="alert-form-span">{{ $message }}</span>
 							@enderror
+							<div class="g-recaptcha" style="margin-top:23px; display:inline-block;" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
+							@error('g-recaptcha-response')
+							<span class="alert-form-span">{{ $message }}</span>
+							@enderror
 							<button type="submit" class="btn btn-default">Đăng ký</button>
 						</form>
 					</div><!--/sign up form-->
