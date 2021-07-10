@@ -6,17 +6,26 @@
 <div class="col-sm-4">
    
     <div class="product-image-wrapper">
-        <a href="{{URL::to('chi-tiet-san-pham/'.$pro->product_id)}}">
         <div class="single-products">
-                <div class="productinfo text-center">
-                    <img src="{{URL::to('public/upload/product/'.$pro->product_image)}}" alt="" />
-                    <h2>{{number_format($pro->product_price)." VND"}}</h2>
-                    <p>{{$pro->product_name}}</p>
-                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                </div>
-                
+                <form action="GET">
+                    <div class="productinfo text-center">
+                        {{ csrf_field() }}
+                        <input type="hidden" class="product_id_{{$pro->product_id}}" value="{{$pro->product_id}}">
+                        <input type="hidden" class="product_name_{{$pro->product_id}}" value="{{$pro->product_name}}">
+                        <input type="hidden" class="product_image_{{$pro->product_id}}" value="{{$pro->product_image}}">
+                        <input type="hidden" class="product_price_{{$pro->product_id}}" value="{{$pro->product_price}}">
+                        <input type="hidden" class="product_qty_{{$pro->product_id}}" value="1">
+
+                        <a href="{{URL::to('chi-tiet-san-pham/'.$pro->product_id)}}">
+                            <img src="{{URL::to('public/upload/product/'.$pro->product_image)}}" alt="" />
+                            <h2>{{number_format($pro->product_price)." VND"}}</h2>
+                            <p>{{$pro->product_name}}</p>
+                        </a>
+                        <button  type="button" class="btn btn-default add-to-cart" data-id_product="{{$pro->product_id}}"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                    </div>
+
+            </form>
         </div>
-        </a>
         <div class="choose">
             <ul class="nav nav-pills nav-justified">
                 <li><a href="#"><i class="fa fa-plus-square"></i>Yêu thích</a></li>

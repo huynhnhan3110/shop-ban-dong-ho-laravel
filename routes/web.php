@@ -75,6 +75,8 @@ Route::post('/save-cart', 'CartController@save_cart');
 Route::get('/view-cart', 'CartController@view_cart');
 Route::get('/delete-to-cart/{rowId}', 'CartController@delete_row_cart');
 
+Route::post('/add-cart-ajax', 'CartController@add_cart_ajax');
+
 Route::post('/update-view-cart','CartController@update_cart_quanlity');
 
 // Login Checkout
