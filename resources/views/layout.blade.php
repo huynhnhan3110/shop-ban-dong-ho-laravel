@@ -125,7 +125,7 @@
 									?>
 								
 								
-								<li><a href="{{URL::to('/view-cart')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+								<li><a href="{{URL::to('/gio-hang')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
 									<?php
 									$customer_id = Session::get('customer_id');
 								
@@ -484,7 +484,22 @@
 					data: {cart_product_id:cart_product_id, cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_price:cart_product_price,
 						cart_product_qty:cart_product_qty,_token:cart_product_token},
 					success:function(data) {
-						alert(data);
+						swal({
+							title: "Đã thêm sản phẩm vào giỏ hàng",
+							text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+							icon: "success",
+							showCancelButton: true,
+							cancelButtonText: "Xem tiếp",
+
+							confirmButtonClass: "btn-success",
+							confirmButtonText: "Đi đến giỏ hàng",
+							closeOnConfirm: false,
+							}, function() {
+								window.location.href = "{{url('/gio-hang')}}";
+							}
+
+							);
+
 					},
 					error: function (data, textStatus, errorThrown) {
 						console.log(data);

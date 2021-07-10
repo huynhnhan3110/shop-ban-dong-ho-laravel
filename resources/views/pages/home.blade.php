@@ -21,7 +21,7 @@
                             <h2>{{number_format($pro->product_price)." VND"}}</h2>
                             <p>{{$pro->product_name}}</p>
                         </a>
-                        <button  type="button" class="btn btn-default add-to-cart" data-id_product="{{$pro->product_id}}"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                        <button  type="button" class="btn btn-default add-to-cart" data-id_product="{{$pro->product_id}}"><i class="fa fa-shopping-cart"></i>Thêm giỏ hàng</button>
                     </div>
 
             </form>
