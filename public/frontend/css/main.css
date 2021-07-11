@@ -1549,9 +1549,11 @@ h2.title {
 
 #cart_items .cart_info {
   border: 1px solid #E6E4DF;
-  margin-bottom: 50px
+  margin-bottom:0px
 }
-
+.submitQty{
+  margin-bottom:50px
+}
 
 #cart_items .cart_info .cart_menu {
   background: #FE980F;

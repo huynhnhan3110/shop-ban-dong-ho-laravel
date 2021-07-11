@@ -91,7 +91,7 @@ class CartController extends Controller
         Session::save();
     }
     public function gio_hang(Request $request) {
-
+        // Session::flush();
         $meta_title = "Thông tin giỏ hàng";
         $meta_desc = "Trang Thông tin giỏ hàng của bạn";
         $meta_keywords = "giỏ hàng xwatch247, xwatch247 cart";
@@ -106,5 +106,41 @@ class CartController extends Controller
         ->with('meta_keywords',$meta_keywords)
         ->with('meta_canonical',$meta_canonical)
         ->with('image_og',$image_og);
+    }
+    public function del_cart($session_id) {
+        $cart = Session::get('cart');
+        if($cart == true) {
+            foreach($cart as $key => $val) {
+                if($val['session_id'] == $session_id){
+                    unset($cart[$key]);
+                    Session::put('cart',$cart);
+                }
+            }
+            return redirect()->back()->with('message','Xóa sản phẩm thành công');
+        } else {
+            return redirect()->back()->with('message','Xóa sản phẩm không thành công');
+        }
+    }
+    public function update_cart(Request $request) {
+        $data = $request->all();
+        $cart = Session::get('cart');
+        if($cart == true) {
+        foreach($data['quantity_change'] as $sessionId => $quanlityValue) {
+            foreach($cart as $key => $val) {
+                if($sessionId == $val['session_id']) {
+                    $cart[$key]['product_qty'] = $quanlityValue;
+                }
+            }
+        }
+        }
+        Session::put('cart',$cart);
+        return redirect()->back()->with('message','Cập nhật số lượng thành công');
+    }
+    public function delete_cart() {
+        $cart = Session::get('cart');
+        if($cart == true) {
+            Session::forget('cart');
+            return redirect()->back()->with('message','Xóa hết giỏ hàng thành công');
+        }
     }
 }

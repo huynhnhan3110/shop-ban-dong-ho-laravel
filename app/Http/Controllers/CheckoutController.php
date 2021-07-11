@@ -208,4 +208,5 @@ class CheckoutController extends Controller
         Session::put('message','Xóa đơn hàng thành công');
         return Redirect::to('/manage-order');
     }
+    
 }

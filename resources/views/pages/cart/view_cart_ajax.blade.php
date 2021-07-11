@@ -9,8 +9,21 @@
 				</ol>
 			</div>
             
-            
+            <form action="{{URL::to('/update-cart')}}" method="POST">
 			<div class="table-responsive cart_info">
+			<?php
+				$totalcartPrice = 0;
+			?>
+			
+
+			@if(session()->has('message'))
+			<div class="alert alert-danger">
+				{{ session()->get('message') }}
+			</div>
+			@elseif(session()->has('error'))
+				{{ session()->get('error') }}
+			@endif
+			
 				<table class="table table-condensed">
 					<thead>
 						<tr class="cart_menu">
@@ -23,30 +36,26 @@
 						</tr>
 					</thead>
 					<tbody>
-                        <?php
-                            $totalcartPrice = 0;
-                        ?>
+					@if(Session::get('cart'))
                         @foreach(Session::get('cart') as $key => $cart)
 						<tr>
 							<td class="cart_product">
 								<a href=""><img src="{{URL::to('public/upload/product/'.$cart['product_image'])}}" alt="" width="50" height="50"></a>
 							</td>
 							<td class="cart_description">
-								<h4><a href=""></a></h4>
-								<p>Mã đồng hồ: {{$cart['product_id']}}</p>
+								<h4><a href="{{URL::to('/chi-tiet-san-pham/'.$cart['product_id'])}}">{{$cart['product_name']}}</a></h4>
+								<!-- <p>Mã: {{$cart['product_id']}}</p> -->
 							</td>
 							<td class="cart_price">
 								<p>{{number_format($cart['product_price'],0,',','.')}}đ</p>
 							</td>
 							<td class="cart_quantity">
-								<form action="{{URL::to('/update-view-cart')}}" method="POST">
+								
 								{{ csrf_field() }}
 								<div class="cart_quantity_button">
-									<input type="hidden" name="rowIDChangeQty" value="">
-									<input class="cart_quantity_input" type="number" name="quantity_change" value="{{$cart['product_qty']}}" size="2">
-									<input type="submit" value="Cập nhật" class="submitQty">
+									<input class="cart_quantity_input" type="number" min="1" name="quantity_change[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}" size="2">
 								</div>
-								</form>
+								
 							</td>
 							<td class="cart_total">
 								<p class="cart_total_price">
@@ -57,41 +66,50 @@
                                    @endphpđ</p>
 							</td>
 							<td class="cart_delete">
-								<a class="cart_quantity_delete" href="{{URL::to('/delete-to-cart/')}}"><i class="fa fa-times"></i></a>
+								<a class="cart_quantity_delete" href="{{URL::to('/del-cart/'.$cart['session_id'])}}"><i class="fa fa-times"></i></a>
+								
 							</td>
                         
 						</tr>
                         @endforeach
-					</tbody>
-				</table>
-			</div>
-	</section> <!--/#cart_items-->
-    <section id="do_action">
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="total_area">
-						<ul>
-							<li>Tổng tiền sản phẩm <span>{{number_format($totalcartPrice,0,',','.')}}đ</span></li>
-							<li>Thuế <span></span></li>
-							<li>Phí vận chuyển <span></span></li>
-							<li>Tổng tiền thanh toán <span></span></li>
-						</ul>
-							<?php
+						<tr>
+							<td colspan="5">
+								<input type="submit" value="Cập nhật giỏ hàng" class="submitQty check_out">
+								<a href="{{URL::to('/delete-cart')}}" class="submitQty check_out">Xóa tất cả sản phẩm</a>
+								
+									<?php
 									$customer_id = Session::get('customer_id');
 								
 									if($customer_id != NULL) {
 									?>
-									<a class="btn btn-default check_out" onclick="return alert('Bạn chưa có gì trong giỏ hàng, vui lòng thêm một sản phẩm')" href="#">Thanh toán</a>
+									<a class="check_out" onclick="return alert('Bạn chưa có gì trong giỏ hàng, vui lòng thêm một sản phẩm')" href="#">Thanh toán</a>
 									<?php }
 									elseif($customer_id != NULL){?>
-										<a class="btn btn-default check_out" href="{{URL::to('/checkout')}}">Thanh toán</a>
+										<a class="check_out" href="{{URL::to('/checkout')}}">Thanh toán</a>
 									<?php }  else { ?>
-										<a class="btn btn-default check_out" href="{{URL::to('/login-checkout')}}">Thanh toán</a>
+										<a class="check_out" href="{{URL::to('/login-checkout')}}">Thanh toán</a>
 									<?php } ?>
-							
-					</div>
-				</div>
-			</div>
-	</section><!--/#do_action-->
+								<div class="pull-right"><ul>
+									<li>Tổng tiền sản phẩm <span>{{number_format($totalcartPrice,0,',','.')}}đ</span></li>
+									<li>Thuế <span></span></li>
+									<li>Phí vận chuyển <span></span></li>
+									<li>Tổng tiền thanh toán <span></span></li>
+								</ul></div>
 
+							</td>
+						</tr>
+						@else
+						<tr><td colspan="5"><center><p>Không có sản phẩm nào</p></center></td></tr>
+						@endif
+					</tbody>
+					
+				</table>
+				
+				
+			</div>
+			
+
+			</form>
+	</section> <!--/#cart_items-->
+	
 @endsection

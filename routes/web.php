@@ -74,9 +74,13 @@ Route::post('/update-product/{product_id}', 'ProductController@update_product');
 Route::post('/save-cart', 'CartController@save_cart');
 Route::get('/view-cart', 'CartController@view_cart');
 Route::get('/gio-hang', 'CartController@gio_hang');
+Route::get('/del-cart/{session_id}', 'CartController@del_cart');
+
 Route::get('/delete-to-cart/{rowId}', 'CartController@delete_row_cart');
+Route::get('/delete-cart', 'CartController@delete_cart');
 
 Route::post('/add-cart-ajax', 'CartController@add_cart_ajax');
+Route::post('/update-cart', 'CartController@update_cart');
 
 Route::post('/update-view-cart','CartController@update_cart_quanlity');
 

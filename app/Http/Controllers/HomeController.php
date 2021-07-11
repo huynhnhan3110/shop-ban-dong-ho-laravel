@@ -53,7 +53,7 @@ class HomeController extends Controller
         $branch_product = DB::table('tbl_branch_product')->where('branch_status','1')->orderby('branch_id','desc')->get();
         
 
-        $product = DB::table('tbl_product')->where('product_status','1')->orderby('product_id','desc')->limit(4)->get();
+        $product = DB::table('tbl_product')->where('product_status','1')->orderby('product_id','desc')->limit(9)->get();
         return view('pages.home')->with('category_product',$cate_product)->with('branch_product',$branch_product)
         ->with('product',$product)
         ->with('meta_title',$meta_title)
