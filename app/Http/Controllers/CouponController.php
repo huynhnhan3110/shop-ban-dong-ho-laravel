@@ -4,12 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Coupon;
+use Illuminate\Support\Facades\Redirect; // dùng để chuyển hướng
 use Session; // dùng để  lưu tạm các message sau khi thực hiện một công việc gì đó.
 use App\Http\Requests; // dùng để lấy dữ liệu từ form
 session_start();
 
 class CouponController extends Controller
 {
+    public function unset_coupon() {
+        $coupon = Session::get('coupon');
+        if($coupon) {
+            Session::forget('coupon');
+            return redirect()->back()->with('message','Xóa mã giảm giá thành công');
+        }
+    }
     public function add_coupon() {
         return view('admin.coupon.add_coupon');
     }
@@ -28,5 +36,11 @@ class CouponController extends Controller
     public function all_coupon() {
         $coupon = Coupon::orderBy('coupon_id','DESC')->get();
         return view('admin.coupon.all_coupon')->with(compact('coupon',$coupon));
+    }
+    public function delete_coupon($coupon_id) {
+        $coupon = Coupon::find($coupon_id)->first();
+        $coupon->delete();
+        Session::put('message','Xóa mã giảm giá thành công');
+        return Redirect::to('/all-coupon');
     }
 }

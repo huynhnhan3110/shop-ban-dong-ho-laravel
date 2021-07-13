@@ -93,10 +93,34 @@
 										<a class="check_out" href="{{URL::to('/login-checkout')}}">Thanh toán</a>
 									<?php } ?>
 								<div class="pull-right"><ul>
-									<li>Tổng tiền sản phẩm <span>{{number_format($totalcartPrice,0,',','.')}}đ</span></li>
-									<li>Thuế <span></span></li>
-									<li>Phí vận chuyển <span></span></li>
-									<li>Tổng tiền thanh toán <span></span></li>
+									<li>Tổng tiền sản phẩm <span>{{number_format($totalcartPrice,0,',','.')}} đ</span></li>
+									
+										
+									@if(Session::get('coupon'))
+										@foreach(Session::get('coupon') as $key => $val)
+											@if($val['coupon_condition'] == 1)
+												<li>Mã giảm: {{ $val['coupon_number']}} %</li>
+												
+												@php
+													$couponMonmey = ($totalcartPrice * $val['coupon_number']) / 100;
+													echo '<li>Số tiền được giảm: '.number_format($couponMonmey,0,',','.').' đ</li>';
+													$totalAfterCoupon = $totalcartPrice - $couponMonmey;
+													echo '<li>Tổng tiền thanh toán: '.number_format($totalAfterCoupon,0,',','.').' đ</li>';
+												@endphp
+											@else
+												<li>Mã giảm: {{ number_format($val['coupon_number'],0,',','.')}} đ</li>
+												
+												@php
+													echo '<li>Số tiền được giảm: '.number_format($val['coupon_number'],0,',','.').' đ</li>';
+													$totalAfterCoupon = $totalcartPrice - $val['coupon_number'];
+													echo '<li>Tổng tiền thanh toán: '.number_format($totalAfterCoupon,0,',','.').' đ</li>';
+												@endphp
+											@endif
+										@endforeach
+									@endif
+
+									
+									
 								</ul></div>
 							</td>
 						</tr>
@@ -108,8 +132,18 @@
 						<td>
 							<form action="{{URL::to('/check-coupon')}}" method="POST">
 							@csrf
-							<input type="text" name="coupon_code" class="form-control" placeholder="Nhập mã giảm giá">
-							<input type="submit" class="submitQty check_out" value="Áp dụng mã giảm giá">
+							<input type="text" name="coupon_code" value="@php 
+							if(Session::get('coupon')) {
+								foreach(Session::get('coupon') as $key =>$val) {
+									echo $val['coupon_code'];
+								}
+							}
+							@endphp" class="form-control" placeholder="Nhập mã giảm giá">
+							@if(Session::get('coupon'))
+							<a href="{{URL::to('/unset-coupon')}}" class="btn btn-danger" style="width: 100%;">Xóa mã giảm giá</a>
+							@else
+							<input type="submit" class="btn btn-warning" style="width: 100%;" value="Áp dụng mã giảm giá">
+							@endif
 							</form>
 						</td>
 					</tr>

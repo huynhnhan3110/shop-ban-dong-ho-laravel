@@ -42,6 +42,7 @@
             <th>Số lượng mã</th>
             <th>Chức năng mã</th>
             <th>Số lượng giảm</th>
+            <th>Tùy chọn</th>
           </tr>
         </thead>
         <tbody>
@@ -69,6 +70,11 @@
               @else
               {{ number_format($cp->coupon_number,0,',','.') }} VND
               @endif
+            </td>
+            <td>
+              <a onclick="return confirm('Bạn có chắc là muốn xóa mã giảm giá này không ?')" href="{{URL::to('delete-coupon/'.$cp->coupon_id)}}" class="active styling-edit" ui-toggle-class="">
+                <i class="fa fa-times text-danger text"></i>
+              </a>
             </td>
           </tr>
           @endforeach

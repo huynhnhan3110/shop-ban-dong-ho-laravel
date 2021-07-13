@@ -87,7 +87,9 @@ Route::post('/update-view-cart','CartController@update_cart_quanlity');
 // Coupon
 
 
+Route::get('/unset-coupon', 'CouponController@unset_coupon');
 Route::get('/add-coupon', 'CouponController@add_coupon');
+Route::get('/delete-coupon/{coupon_id}', 'CouponController@delete_coupon');
 Route::get('/all-coupon', 'CouponController@all_coupon');
 
 Route::post('/check-coupon','CartController@check_coupon');

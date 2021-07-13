@@ -8,6 +8,7 @@ use Session; // dùng để  lưu tạm các message sau khi thực hiện một
 use App\Http\Requests; // dùng để lấy dữ liệu từ form
 use Illuminate\Support\Facades\Redirect; // dùng để chuyển hướng
 use Cart;
+use App\Models\Coupon;
 session_start();
 class CartController extends Controller
 {
@@ -140,11 +141,40 @@ class CartController extends Controller
         $cart = Session::get('cart');
         if($cart == true) {
             Session::forget('cart');
+            Session::forget('coupon');
             return redirect()->back()->with('message','Xóa hết giỏ hàng thành công');
         }
     }
     public function check_coupon(Request $request) {
         $data = $request->all();
-        print_r($data);
+        $coupon = Coupon::where('coupon_code',$data['coupon_code'])->first();
+        if($coupon) {
+            if($coupon->count() > 0) {
+              $coupon_session = Session::get('coupon');
+              if($coupon_session) {
+                $isAvaliableCoupon = 0;
+                if($isAvaliableCoupon == 0) {
+                    $coupons[] = array(
+                        'coupon_code' => $coupon->coupon_code,
+                        'coupon_condition' => $coupon->coupon_condition,
+                        'coupon_number' => $coupon->coupon_number,
+                    );
+                    Session::put('coupon',$coupons);
+                }
+              } else {
+                  $coupons[] = array(
+                      'coupon_code' => $coupon->coupon_code,
+                      'coupon_condition' => $coupon->coupon_condition,
+                      'coupon_number' => $coupon->coupon_number,
+                  );
+                  Session::put('coupon',$coupons);
+              }
+              Session::save();
+              return redirect()->back()->with('message','Áp dụng mã giảm giá thành công');
+            }
+            
+        } else {
+            return redirect()->back()->with('message','Mã giảm giá không đúng');
+        }
     }
 }
