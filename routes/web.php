@@ -84,6 +84,15 @@ Route::post('/update-cart', 'CartController@update_cart');
 
 Route::post('/update-view-cart','CartController@update_cart_quanlity');
 
+// Coupon
+
+
+Route::get('/add-coupon', 'CouponController@add_coupon');
+Route::get('/all-coupon', 'CouponController@all_coupon');
+
+Route::post('/check-coupon','CartController@check_coupon');
+Route::post('/save-coupon','CouponController@save_coupon');
+
 // Login Checkout
 Route::get('/checkout', 'CheckoutController@checkout');
 Route::get('/login-checkout', 'CheckoutController@login_checkout');

@@ -143,4 +143,8 @@ class CartController extends Controller
             return redirect()->back()->with('message','Xóa hết giỏ hàng thành công');
         }
     }
+    public function check_coupon(Request $request) {
+        $data = $request->all();
+        print_r($data);
+    }
 }

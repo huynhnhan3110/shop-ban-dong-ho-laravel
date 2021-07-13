@@ -9,7 +9,7 @@
 				</ol>
 			</div>
             
-            <form action="{{URL::to('/update-cart')}}" method="POST">
+            
 			<div class="table-responsive cart_info">
 			<?php
 				$totalcartPrice = 0;
@@ -35,9 +35,12 @@
 							<td></td>
 						</tr>
 					</thead>
+					<form action="{{URL::to('/update-cart')}}" method="POST">
 					<tbody>
+					
 					@if(Session::get('cart'))
                         @foreach(Session::get('cart') as $key => $cart)
+						
 						<tr>
 							<td class="cart_product">
 								<a href=""><img src="{{URL::to('public/upload/product/'.$cart['product_image'])}}" alt="" width="50" height="50"></a>
@@ -95,21 +98,29 @@
 									<li>Phí vận chuyển <span></span></li>
 									<li>Tổng tiền thanh toán <span></span></li>
 								</ul></div>
-
 							</td>
 						</tr>
-						@else
+					
+						
+					</tbody>
+					</form>
+					<tr>
+						<td>
+							<form action="{{URL::to('/check-coupon')}}" method="POST">
+							@csrf
+							<input type="text" name="coupon_code" class="form-control" placeholder="Nhập mã giảm giá">
+							<input type="submit" class="submitQty check_out" value="Áp dụng mã giảm giá">
+							</form>
+						</td>
+					</tr>
+					@else
 						<tr><td colspan="5"><center><p>Không có sản phẩm nào</p></center></td></tr>
 						@endif
-					</tbody>
-					
 				</table>
 				
 				
 			</div>
 			
-
-			</form>
 	</section> <!--/#cart_items-->
 	
 @endsection
