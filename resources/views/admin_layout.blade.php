@@ -141,6 +141,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a href="{{URL::to('/all-coupon')}}">Liệt kê Mã giảm giá</a></li>
                     </ul>
                 </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-pencil"></i>
+                        <span>Vận chuyển</span>
+                    </a>
+                    <ul class="sub">
+						<li><a href="{{URL::to('/delivery')}}">Quản lý giá vận chuyển</a></li>
+                    </ul>
+                </li>
             </ul>            </div>
         <!-- sidebar menu end-->
     </div>
@@ -169,11 +178,53 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('public/backend/js/jquery.scrollTo.js')}}"></script>
 <!-- morris JavaScript -->	
 <script src="{{asset('public/backend/ckeditor5-build-classic/ckeditor.js')}}"></script>
-<script>
-    $.validate({
 
-    });
+<script>
+        $(document).ready(function () {
+            $('.feeship_add').click(function (){
+                var city = $('.city').val();
+                var province = $('.province').val();
+                var _token = $('input[name="_token"]').val();
+                var ward = $('.ward').val();
+                var feeship = $('.feeship').val();
+                $.ajax({
+                    url: '{{url::to("/add-feeship")}}',
+                    method: 'POST',
+                    data: {
+                        city:city, province:province, _token:_token,ward:ward,feeship:feeship
+                    },
+                    success: function (data) {
+                        alert("Thêm phí vận chuyển thành công");
+                    }
+                })
+            });
+            $('.choose').on('change',function () {
+                var action = $(this).attr('id');
+                var ma_id = $(this).val();
+                var _token = $('input[name="_token"]').val();
+                var result = '';
+
+                if(action == 'nameCity') {
+                    result = "nameProvince";
+                } else {
+                    result = "nameWards";
+                }
+                
+                $.ajax({
+                    url: '{{url::to("/get-delivery")}}',
+                    method: 'POST',
+                    data: {
+                        action:action, ma_id:ma_id, _token:_token
+                    },
+                    success: function (data) {
+                        $('#'+result).html(data);
+                    }
+                })
+            });
+        })
 </script>
+
+
 <script>
     ClassicEditor
         .create( document.querySelector( '#ckeditor1' ) )
@@ -253,6 +304,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</script>
 <!-- calendar -->
 	<script type="text/javascript" src="{{asset('public/backend/js/monthly.js')}}"></script>
+    
 	<script type="text/javascript">
 		$(window).load( function() {
 
@@ -283,5 +335,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 	</script>
 	<!-- //calendar -->
+    <script>
+    $.validate({
+    });
+</script>
 </body>
 </html>
