@@ -52,6 +52,7 @@
                             </div>
 
                         </div>
+                        <div id="fetch_delivery"></div>
                     </section>
 
             </div>

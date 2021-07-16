@@ -129,3 +129,5 @@ Route::get('/google/callback','AdminController@callback_google');
 Route::get('/delivery','DeliveryController@delivery');
 Route::post('/get-delivery','DeliveryController@get_delivery');
 Route::post('/add-feeship','DeliveryController@add_feeship');
+Route::post('/fetch-feeship','DeliveryController@fetch_feeship');
+Route::post('/update-feeship','DeliveryController@update_feeship');

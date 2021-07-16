@@ -8,9 +8,52 @@ use App\Models\City;
 use App\Models\Province;
 use App\Models\Wards;
 use App\Models\Feeship;
-
+use Illuminate\Support\Facades\Redirect; // dùng để chuyển hướng
+use Session; // 
+session_start();
 class DeliveryController extends Controller
 {
+    public function AuthLogin() {
+        
+        if(Session::get('admin_id') != null) {
+            return Redirect::to('admin.dashboard');
+        } else {
+            return Redirect::to('admin')->send();
+        }
+    }
+    public function update_feeship(Request $request) {
+        $data = $request->all();
+        $feeship = Feeship::find($data['fee_id']);
+        
+        $new_fee = trim($data['fee_value'],'.');
+        $feeship->fee_feeship = $new_fee;
+        $feeship->save();
+    }
+    public function fetch_feeship() {
+        $feeship = Feeship::orderBy('fee_id','DESC')->get();
+        $output = '';
+        $output .= '<div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <td>Tên tỉnh</td>
+                                    <td>Tên quận huyện</td>
+                                    <td>Tên xã phường</td>
+                                    <td>Phí vận chuyển (VND)</td>
+                                </tr>
+                            </thead>
+                            <tbody>';
+        foreach($feeship as $key => $fee) {
+            $output .= '<tr>
+                <td>'.$fee->city->name_city.'</td>
+                <td>'.$fee->province->name_quanhuyen.'</td>
+                <td>'.$fee->wards->name_xaphuong.'</td>
+                <td contenteditable data-fee_edit='.$fee->fee_id.' class="fee_edit_class">'.number_format($fee->fee_feeship,0,',','.').'</td>
+            </tr>';
+        }
+        $output .= '</tbody></table></div>';
+        echo $output;
+    }
     public function add_feeship(Request $request) {
         $data = $request->all();
         $feeship = new Feeship();
@@ -41,6 +84,7 @@ class DeliveryController extends Controller
         echo $output;
     }
     public function delivery() {
+        $this->AuthLogin();
         $cityData = City::orderBy('matp','ASC')->get();
         
         return view('admin.delivery.add_delivery')->with(compact('cityData',$cityData));

@@ -2439,6 +2439,7 @@ input.ggg{
 	-moz-transition:0.5s all;
 	-ms-transition:0.5s all;
 }
+#fetch_delivery {padding: 15px;}
 .w3layouts-main p a {
     color: #f0bcb4;
     padding: 10px;

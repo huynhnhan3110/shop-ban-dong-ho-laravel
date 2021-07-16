@@ -11,6 +11,14 @@ session_start();
 
 class CouponController extends Controller
 {
+    public function AuthLogin() {
+        
+        if(Session::get('admin_id') != null) {
+            return Redirect::to('admin.dashboard');
+        } else {
+            return Redirect::to('admin')->send();
+        }
+    }
     public function unset_coupon() {
         $coupon = Session::get('coupon');
         if($coupon) {
@@ -19,6 +27,7 @@ class CouponController extends Controller
         }
     }
     public function add_coupon() {
+        $this->AuthLogin();
         return view('admin.coupon.add_coupon');
     }
     public function save_coupon(Request $request) {
@@ -34,6 +43,7 @@ class CouponController extends Controller
         return view('admin.coupon.add_coupon');
     }
     public function all_coupon() {
+        $this->AuthLogin();
         $coupon = Coupon::orderBy('coupon_id','DESC')->get();
         return view('admin.coupon.all_coupon')->with(compact('coupon',$coupon));
     }
