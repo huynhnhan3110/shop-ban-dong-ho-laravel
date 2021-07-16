@@ -96,6 +96,7 @@ Route::post('/check-coupon','CartController@check_coupon');
 Route::post('/save-coupon','CouponController@save_coupon');
 
 // Login Checkout
+Route::get('/delete-fee-home', 'CheckoutController@delete_fee_home');
 Route::get('/checkout', 'CheckoutController@checkout');
 Route::get('/login-checkout', 'CheckoutController@login_checkout');
 Route::get('/logout-checkout', 'CheckoutController@logout_checkout');
@@ -103,6 +104,8 @@ Route::get('/payment', 'CheckoutController@payment');
 Route::post('/add-customer', 'CheckoutController@add_customer');
 Route::post('/login', 'CheckoutController@login_customer');
 Route::post('/save-checkout-customer', 'CheckoutController@save_checkout_customer');
+Route::post('/calculate-fee', 'CheckoutController@calculate_fee');
+Route::post('/get-delivery-home', 'CheckoutController@get_delivery_home');
 
 // Order
 Route::post('/save-order', 'CheckoutController@save_order');

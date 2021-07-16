@@ -110,10 +110,10 @@
 									?>
 									<li><a href="{{URL::to('/payment')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
 									<?php }
-									elseif($customer_id != NULL && $shipping_id == NULL && Cart::count() > 0 ) {?>
+									elseif($customer_id != NULL && $shipping_id == NULL) {?>
 										<li><a href="{{URL::to('/checkout')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
 									<?php }
-									elseif($customer_id != NULL && Cart::count() == 0) {
+									elseif($customer_id != NULL) {
 									?>
 									<li><a onclick="return alert('Bạn chưa có gì trong giỏ hàng, vui lòng thêm một sản phẩm')" href="#"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
 									<?php }
@@ -512,5 +512,54 @@
 
 	<div id="fb-root"></div>
 	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v11.0&appId=1011902732305839&autoLogAppEvents=1" nonce="D3BpO0xr"></script>
+	<script>
+		$(document).ready(function() {
+		$('.feeship_calculate').click(function(){
+			var cityId = $('.city').val();
+			var provinceId = $('.province').val();
+			var wardId = $('.ward').val();
+			var _token = $('input[name="_token"]').val();
+
+			if(cityId == 0 || provinceId == 0 || wardId == 0) {
+				
+				alert('Vui lòng chọn địa chỉ giao hàng');
+			} else {
+				$.ajax({
+                    url: '{{url::to("/calculate-fee")}}',
+                    method: 'POST',
+                    data: {
+                        cityId:cityId, provinceId:provinceId,wardId:wardId,_token:_token
+                    },
+                    success: function () {
+                    	location.reload();
+                    }
+                })
+			}
+		});
+		$('.choose').on('change',function () {
+                var action = $(this).attr('id');
+                var ma_id = $(this).val();
+                var _token = $('input[name="_token"]').val();
+                var result = '';
+
+                if(action == 'nameCity') {
+                    result = "nameProvince";
+                } else {
+                    result = "nameWards";
+                }
+                
+                $.ajax({
+                    url: '{{url::to("/get-delivery-home")}}',
+                    method: 'POST',
+                    data: {
+                        action:action, ma_id:ma_id, _token:_token
+                    },
+                    success: function (data) {
+                        $('#'+result).html(data);
+                    }
+                })
+            });
+		});
+	</script>
 </body>
 </html>

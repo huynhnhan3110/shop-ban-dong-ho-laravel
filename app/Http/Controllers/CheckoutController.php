@@ -8,11 +8,50 @@ use Session; // dùng để  lưu tạm các message sau khi thực hiện một
 use App\Http\Requests; // dùng để lấy dữ liệu từ form
 use Illuminate\Support\Facades\Redirect; // dùng để chuyển hướng
 use Cart;
+use App\Models\City;
+use App\Models\Province;
+use App\Models\Wards;
+use App\Models\Feeship;
 use App\Rules\Captcha;
 session_start();
 class CheckoutController extends Controller
 {
-    //
+    
+    public function delete_fee_home() {
+        if(Session::get('fee')) {
+            Session::forget('fee');
+        }
+        return redirect()->back();
+    }
+    public function calculate_fee(Request $request) {
+        $data = $request->all();
+        $feeship = Feeship::where('fee_matp',$data['cityId'])->where('fee_maqh',$data['provinceId'])->where('fee_xaid',$data['wardId'])->get();
+        if($feeship) {
+            foreach($feeship as $key => $fee) {
+                Session::put('fee',$fee->fee_feeship);
+                Session::save();
+            }
+            
+        }        
+    }
+    public function get_delivery_home(Request $request) {
+        $data = $request->all();
+        $output = '';
+        if($data['action'] == 'nameCity') {
+            $selectProvince = Province::where('matp',$data['ma_id'])->orderBy('maqh','ASC')->get();
+            $output .= "<option value='0'>---Chọn quận huyện---</option>";
+            foreach($selectProvince as $key => $qh) {
+                $output .="<option value='".$qh->maqh."'>".$qh->name_quanhuyen."</option>";
+            }
+        } else {
+            $selectWards = Wards::where('maqh',$data['ma_id'])->orderBy('xaid','ASC')->get();
+            $output .= "<option value='0'>---Chọn xã phường---</option>";
+            foreach($selectWards as $key => $xp) {
+                $output .= "<option value='".$xp->xaid."'>".$xp->name_xaphuong."</option>";
+            }
+        }
+        echo $output;
+    }
     public function AuthLogin() {
         if(Session::get('admin_id') != null) {
             return Redirect::to('admin.dashboard');
@@ -66,7 +105,7 @@ class CheckoutController extends Controller
         $meta_keywords = "giao hàng xwatch247, xwatch247 checkout";
         $meta_canonical = $request->url();
         $image_og = "";
-
+        $city = City::orderBy('matp')->get();
         $cate_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $branch_product = DB::table('tbl_branch_product')->where('branch_status','1')->orderby('branch_id','desc')->get();
         return view('pages.checkout.view_checkout')->with('category_product',$cate_product)->with('branch_product',$branch_product)
@@ -74,7 +113,7 @@ class CheckoutController extends Controller
         ->with('meta_desc',$meta_desc)
         ->with('meta_keywords',$meta_keywords)
         ->with('meta_canonical',$meta_canonical)
-        ->with('image_og',$image_og);
+        ->with('image_og',$image_og)->with('cityData',$city);
     }
     public function save_checkout_customer(Request $request) {
         $data = array();
