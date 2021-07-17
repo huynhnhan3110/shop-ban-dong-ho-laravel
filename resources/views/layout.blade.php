@@ -515,7 +515,7 @@
 	
 	<script>
 		$(document).ready(function() {
-
+		
 		$('.confirm-order').click(function(){
 		var shipping_name = $('.shipping_name').val();
 		var shipping_email = $('.shipping_email').val();
@@ -525,18 +525,41 @@
 		var payment_select = $('.payment_select').val();
 		var _token = $('input[name="_token"]').val();
 		
-		
-		$.ajax({
-			url: '{{url::to("/confirm-order")}}',
-			method: 'POST',
-			data: {
-				shipping_name:shipping_name, shipping_email:shipping_email,shipping_phone:shipping_phone,
-				shipping_address:shipping_address,shipping_note:shipping_note,payment_select:payment_select,_token:_token
+		var feeship = $('.fee_shipping').val();
+		var coupon = $('.coupon_value').val();
+		swal({
+			title: "Xác nhận đặt hàng ?",
+			text: "Bạn sẽ không thể hủy đơn hàng sau khi thực hiện thao tác này!",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonClass: "btn-danger",
+			confirmButtonText: "Ok, đồng ý",
+			cancelButtonText: "Không, để sau",
+			closeOnConfirm: false,
+			closeOnCancel: false
 			},
-			success: function () {
-				
+			function(isConfirm) {
+			if (isConfirm) {
+				$.ajax({
+					url: '{{url::to("/confirm-order")}}',
+					method: 'POST',
+					data: {
+						shipping_name:shipping_name, shipping_email:shipping_email,shipping_phone:shipping_phone,
+						shipping_address:shipping_address,shipping_note:shipping_note,payment_select:payment_select,feeship:feeship,coupon:coupon,_token:_token
+					},
+					success: function () {
+						
+					}
+				});
+				swal("Thành công!", "Đơn hàng của bạn đã được xác nhận", "success");
+				window.setTimeout(() => {
+					location.reload();
+				}, 3000);
+			} else {
+				swal("Đã đóng!", "Đơn hàng chưa được gửi đi", "error");
 			}
-		})
+		});
+			
 		});
 		$('.feeship_calculate').click(function(){
 			var cityId = $('.city').val();

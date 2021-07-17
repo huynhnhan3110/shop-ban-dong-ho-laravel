@@ -40,10 +40,25 @@ class CheckoutController extends Controller
         $order->customer_id = Session::get('customer_id');
         $order->order_code = $order_code;
         $order->order_status = 1;
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $order->created_at = now();
         $order->save();
-
-        
-        
+        if(Session::get('cart')) {
+        foreach(Session::get('cart') as $key => $cart) {
+            $orderDetail = new OrderDetail();
+            $orderDetail->order_code = $order_code;
+            $orderDetail->product_id = $cart['product_id'];
+            $orderDetail->product_name = $cart['product_name'];
+            $orderDetail->product_price = $cart['product_price'];
+            $orderDetail->product_sales_quanlity = $cart['product_qty'];
+            $orderDetail->order_feeship = $data['feeship'];
+            $orderDetail->order_coupon =  $data['coupon'];
+            $orderDetail->save();
+         }
+        }
+        Session::forget('fee');
+        Session::forget('cart');
+        Session::forget('coupon');
 
     }
     public function delete_fee_home() {

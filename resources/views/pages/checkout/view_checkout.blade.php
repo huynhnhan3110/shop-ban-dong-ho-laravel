@@ -27,17 +27,17 @@
 							        <textarea name="shipping_note" class="shipping_note" placeholder="Ghi chú đơn hàng của bạn" rows="5"></textarea>
 									
 									@if(Session::get('fee'))
-										<input type="hidden" name="fee_shipping" value="{{Session::get('fee')}}">
+										<input type="hidden" name="fee_shipping" class="fee_shipping" value="{{Session::get('fee')}}">
 									@else
-										<input type="hidden" name="fee_shipping" value="10000">
+										<input type="hidden" name="fee_shipping" class="fee_shipping" value="10000">
 									@endif
 									
 									@if(Session::get('coupon'))
 										@foreach(Session::get('coupon') as $key => $val)
-											<input type="hidden" name="coupon" value="{{$val['coupon_number']}}">
+											<input type="hidden" name="coupon_value" class="coupon_value" value="{{$val['coupon_code']}}">
 										@endforeach
 									@else
-										<input type="hidden" name="coupon" value="0">
+										<input type="hidden" name="coupon_value" class="coupon_value" value="0">
 									@endif
 									
 									<div class="form-group">

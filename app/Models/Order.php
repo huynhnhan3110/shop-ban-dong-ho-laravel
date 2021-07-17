@@ -13,6 +13,7 @@ class Order extends Model
     'shipping_id',
     'order_code',
     'order_status',
+    'created_at'
     ];
     protected $primaryKey = 'order_id';
     protected $table = 'tbl_order';
