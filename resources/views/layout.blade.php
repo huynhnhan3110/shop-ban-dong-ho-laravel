@@ -512,8 +512,32 @@
 
 	<div id="fb-root"></div>
 	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v11.0&appId=1011902732305839&autoLogAppEvents=1" nonce="D3BpO0xr"></script>
+	
 	<script>
 		$(document).ready(function() {
+
+		$('.confirm-order').click(function(){
+		var shipping_name = $('.shipping_name').val();
+		var shipping_email = $('.shipping_email').val();
+		var shipping_phone = $('.shipping_phone').val();
+		var shipping_address = $('.shipping_address').val();
+		var shipping_note = $('.shipping_note').val();
+		var payment_select = $('.payment_select').val();
+		var _token = $('input[name="_token"]').val();
+		
+		
+		$.ajax({
+			url: '{{url::to("/confirm-order")}}',
+			method: 'POST',
+			data: {
+				shipping_name:shipping_name, shipping_email:shipping_email,shipping_phone:shipping_phone,
+				shipping_address:shipping_address,shipping_note:shipping_note,payment_select:payment_select,_token:_token
+			},
+			success: function () {
+				
+			}
+		})
+		});
 		$('.feeship_calculate').click(function(){
 			var cityId = $('.city').val();
 			var provinceId = $('.province').val();

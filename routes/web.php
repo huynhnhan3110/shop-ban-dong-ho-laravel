@@ -106,6 +106,7 @@ Route::post('/login', 'CheckoutController@login_customer');
 Route::post('/save-checkout-customer', 'CheckoutController@save_checkout_customer');
 Route::post('/calculate-fee', 'CheckoutController@calculate_fee');
 Route::post('/get-delivery-home', 'CheckoutController@get_delivery_home');
+Route::post('/confirm-order', 'CheckoutController@confirm_order');
 
 // Order
 Route::post('/save-order', 'CheckoutController@save_order');

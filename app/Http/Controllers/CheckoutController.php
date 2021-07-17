@@ -13,10 +13,39 @@ use App\Models\Province;
 use App\Models\Wards;
 use App\Models\Feeship;
 use App\Rules\Captcha;
+
+use App\Models\Shipping;
+use App\Models\Order;
+use App\Models\OrderDetail;
+
 session_start();
 class CheckoutController extends Controller
 {
-    
+    public function confirm_order(Request $request) {
+        $data = $request->all();
+        $shipping = new Shipping();
+        $shipping->shipping_name = $data['shipping_name'];
+        $shipping->shipping_address = $data['shipping_address'];
+        $shipping->shipping_phone = $data['shipping_phone'];
+        $shipping->shipping_email = $data['shipping_email'];
+        $shipping->shipping_note = $data['shipping_note'];
+        $shipping->shipping_method = $data['payment_select'];
+        $shipping->save();
+
+        $shipping_id = $shipping->shipping_id;
+        $order_code = substr(md5(microtime()), rand(0,26),5);
+        
+        $order = new Order();
+        $order->shipping_id = $shipping_id;
+        $order->customer_id = Session::get('customer_id');
+        $order->order_code = $order_code;
+        $order->order_status = 1;
+        $order->save();
+
+        
+        
+
+    }
     public function delete_fee_home() {
         if(Session::get('fee')) {
             Session::forget('fee');
@@ -27,10 +56,16 @@ class CheckoutController extends Controller
         $data = $request->all();
         $feeship = Feeship::where('fee_matp',$data['cityId'])->where('fee_maqh',$data['provinceId'])->where('fee_xaid',$data['wardId'])->get();
         if($feeship) {
-            foreach($feeship as $key => $fee) {
-                Session::put('fee',$fee->fee_feeship);
+            if($feeship->count() > 0) {
+                foreach($feeship as $key => $fee) {
+                    Session::put('fee',$fee->fee_feeship);
+                    Session::save();
+                }
+            } else {
+                Session::put('fee',10000);
                 Session::save();
             }
+            
             
         }        
     }

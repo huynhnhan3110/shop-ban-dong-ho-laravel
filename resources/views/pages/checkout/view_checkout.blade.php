@@ -18,14 +18,36 @@
 						<div class="bill-to">
 							<p>Thông tin đơn hàng</p>
 							<div class="form-one">
-								<form action="{{URL::to('/save-checkout-customer')}}" method="POST">
+								<form method="POST">
                                     {{ csrf_field() }}
-									<input type="text" name="shipping_name" placeholder="Tên người nhận">
-									<input type="text" name="shipping_email" placeholder="Địa chỉ email">
-									<input type="text" name="shipping_phone" placeholder="Số điện thoại">
-									<input type="text" name="shipping_address" placeholder="Địa chỉ nhận hàng *">
-							        <textarea name="shipping_note"  placeholder="Ghi chú đơn hàng của bạn" rows="5"></textarea>
-                                    <input type="submit" class="btn btn-primary sm-10" value="Đặt hàng">
+									<input type="text" name="shipping_name" class="shipping_name" placeholder="Tên người nhận">
+									<input type="text" name="shipping_email" class="shipping_email" placeholder="Địa chỉ email">
+									<input type="text" name="shipping_phone" class="shipping_phone" placeholder="Số điện thoại">
+									<input type="text" name="shipping_address" class="shipping_address" placeholder="Địa chỉ nhận hàng *">
+							        <textarea name="shipping_note" class="shipping_note" placeholder="Ghi chú đơn hàng của bạn" rows="5"></textarea>
+									
+									@if(Session::get('fee'))
+										<input type="hidden" name="fee_shipping" value="{{Session::get('fee')}}">
+									@else
+										<input type="hidden" name="fee_shipping" value="10000">
+									@endif
+									
+									@if(Session::get('coupon'))
+										@foreach(Session::get('coupon') as $key => $val)
+											<input type="hidden" name="coupon" value="{{$val['coupon_number']}}">
+										@endforeach
+									@else
+										<input type="hidden" name="coupon" value="0">
+									@endif
+									
+									<div class="form-group">
+										<label for="exampleInputFile">Chọn phương thức thanh toán</label>
+										<select class="form-control input-sm m-bot15 payment_select" name="payment_select" id="payment_select">
+											<option value="0">Tiền mặt</option>
+											<option value="1">Chuyển khoản</option>
+										</select>
+                                	</div>
+                                    <input type="button" class="btn btn-primary sm-10 confirm-order" value="Xác nhận đơn hàng">
 								</form>
 
 								<form action="{{URL::to('/')}}" method="POST">
